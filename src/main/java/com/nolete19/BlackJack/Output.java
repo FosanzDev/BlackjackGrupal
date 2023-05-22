@@ -52,19 +52,25 @@ public class Output {
                     break;
                 case 1:
                     for (int j = 0; j < cardAmount; j++) {
-                        sb.append(middleValueSuit(cards[j], 1));
+                        sb.append(middleValue(cards[j], 1));
                     }
                     sb.append("\n");
                     break;
-                case 2, 3:
+                case 2:
                     for (int j = 0; j < cardAmount; j++) {
-                        sb.append(middle());
+                        sb.append(middleSuit(cards[j], 1));
+                    }
+                    sb.append("\n");
+                    break;
+                case 3:
+                    for (int j = 0; j < cardAmount; j++) {
+                        sb.append(middleSuit(cards[j], 2));
                     }
                     sb.append("\n");
                     break;
                 case 4:
                     for (int j = 0; j < cardAmount; j++) {
-                        sb.append(middleValueSuit(cards[j], 2));
+                        sb.append(middleValue(cards[j], 2));
                     }
                     sb.append("\n");
                     break;
@@ -104,54 +110,74 @@ public class Output {
         return sb.toString();
     }
 
-    private static String middleValueSuit(Carta card, int position) {
+    private static String middleValue(Carta card, int position) {
         StringBuilder sb = new StringBuilder();
 
         String value = cardValueToString(card);
         String suit = cardSuitToString(card);
 
         if (position == 1) {
-            sb.append(VERTICAL).append(value).append(suit);
-            for (int i = 0; i < 4; i++) {
+            sb.append(VERTICAL);
+            if (card.getValor() == Valores.DIEZ) {
+                sb.append(value);
+            } else {
+                sb.append(BLANK).append(value);
+            }
+            for (int i = 0; i < 6; i++) {
                 sb.append(BLANK);
             }
             sb.append(VERTICAL);
             return sb.toString();
         } else {
             sb.append(VERTICAL);
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 6; i++) {
                 sb.append(BLANK);
             }
-            sb.append(value).append(suit).append(VERTICAL);
+            if (card.getValor() == Valores.DIEZ) {
+                sb.append(value);
+            } else {
+                sb.append(value).append(BLANK);
+            }
+            sb.append(VERTICAL);
             return sb.toString();
         }
     }
 
-    private static String middle() {
+    private static String middleSuit(Carta card, int position) {
         StringBuilder sb = new StringBuilder();
-        sb.append(VERTICAL);
-        for (int i = 0; i < 8; i++)
-            sb.append(" ");
-        sb.append(VERTICAL);
+
+        if (position == 1) {
+            sb.append(VERTICAL).append(BLANK).append(cardSuitToString(card));
+            for (int i = 0; i < 6; i++)
+                sb.append(BLANK);
+            sb.append(VERTICAL);
+        } else {
+            sb.append(VERTICAL);
+            for (int i = 0; i < 6; i++)
+                sb.append(BLANK);
+            sb.append(cardSuitToString(card)).append(BLANK).append(VERTICAL);
+        }
+
+
         return sb.toString();
     }
 
     private static String cardValueToString(Carta card) {
         switch (card.getValor().getValor()) {
             case 1 :
-                return " A";
+                return "A";
             case 2, 3, 4, 5, 6, 7, 8, 9:
-                return " " + String.valueOf(card.getValor().getValor());
+                return String.valueOf(card.getValor().getValor()) ;
             case 10:
                 switch (card.getValor()) {
                     case DIEZ:
                         return "10";
                     case J:
-                        return " J";
+                        return "J";
                     case Q:
-                        return " Q";
+                        return "Q";
                     case K:
-                        return " K";
+                        return "K";
                     default:
                         return "XX";
                 }
@@ -163,13 +189,13 @@ public class Output {
     private static String cardSuitToString(Carta card) {
         switch (card.getPalo()) {
             case TREBOL:
-                return " " + SPADE;
+                return SPADE;
             case CORAZONES:
-                return " " + HEART;
+                return HEART;
             case PICAS:
-                return " " + CLUB;
+                return CLUB;
             case DIAMANTES:
-                return " " + DIAMOND;
+                return DIAMOND;
         }
         return "X";
     }

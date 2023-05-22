@@ -7,8 +7,9 @@ public class Main {
         Carta card2 = new Carta(Palos.CORAZONES, Valores.DIEZ);
         Carta card3 = new Carta(Palos.PICAS, Valores.K);
 
-        Carta[] cardArr = {card1, card2};
+        Carta[] cardArr = {card2, card1, card3};
         System.out.println(Output.getCards(cardArr));
+
 
 
     }
