@@ -9,7 +9,7 @@ public class Output {
     static final String BOTTOM_RIGHT = "┘";
     static final String VERTICAL = "│";
     static final String HORIZONTAL = "─";
-    static final String BLANK = " ";
+    static final String BLANK = "\u0020";
     static final String SPADE = "♠";
     static final String HEART = "♥";
     static final String DIAMOND = "♦";
@@ -37,29 +37,12 @@ public class Output {
         return "";
     }
 
-    public static String getBlankCard(int cardAmount) {
+    public static String getCards(Carta[] cards) {
         StringBuilder sb = new StringBuilder();
-        String TOP_LEFT = "┌";
-        String TOP_RIGHT = "┑";
-        String BOTTOM_LEFT = "└";
-        String BOTTOM_RIGHT = "┘";
-        String VERTICAL = "│";
-        String HORIZONTAL = "─";
-        String BLANK = " ";
+        int cardAmount = cards.length;
 
 
-
-
-
-
-
-        sb.append(TOP_LEFT).append(HORIZONTAL).append(HORIZONTAL).append(HORIZONTAL).append(HORIZONTAL).append(HORIZONTAL).append(HORIZONTAL).append(TOP_RIGHT).append("\n");
-        sb.append(VERTICAL).append("XX").append(BLANK).append(BLANK).append(BLANK).append(BLANK).append(VERTICAL).append("\n");
-        sb.append(VERTICAL).append(BLANK).append(BLANK).append(BLANK).append(BLANK).append(BLANK).append(BLANK).append(VERTICAL).append("\n");
-        sb.append(VERTICAL).append(BLANK).append(BLANK).append(BLANK).append(BLANK).append("XX").append(VERTICAL).append("\n");
-        sb.append(BOTTOM_LEFT).append(HORIZONTAL).append(HORIZONTAL).append(HORIZONTAL).append(HORIZONTAL).append(HORIZONTAL).append(HORIZONTAL).append(BOTTOM_RIGHT);
-
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             switch (i) {
                 case 0:
                     for (int j = 0; j < cardAmount; j++) {
@@ -69,20 +52,28 @@ public class Output {
                     break;
                 case 1:
                     for (int j = 0; j < cardAmount; j++) {
-                        sb.append(topBorder());
+                        sb.append(middleValueSuit(cards[j], 1));
                     }
+                    sb.append("\n");
                     break;
-                case 2:
+                case 2, 3:
                     for (int j = 0; j < cardAmount; j++) {
-                        sb.append(topBorder());
+                        sb.append(middle());
                     }
+                    sb.append("\n");
                     break;
-                case 3:
+                case 4:
                     for (int j = 0; j < cardAmount; j++) {
-                        sb.append(topBorder());
+                        sb.append(middleValueSuit(cards[j], 2));
                     }
+                    sb.append("\n");
                     break;
-
+                case 5:
+                    for (int j = 0; j < cardAmount; j++) {
+                        sb.append(bottomBorder());
+                    }
+                    sb.append("\n");
+                    break;
             }
         }
 
@@ -97,22 +88,55 @@ public class Output {
 
     private static String topBorder() {
         StringBuilder sb = new StringBuilder();
-        sb.append(TOP_LEFT).append(HORIZONTAL).append(HORIZONTAL).append(HORIZONTAL).append(HORIZONTAL).append(HORIZONTAL).append(HORIZONTAL).append(TOP_RIGHT);
+        sb.append(TOP_LEFT);
+        for (int i = 0; i < 8; i++)
+            sb.append(HORIZONTAL);
+        sb.append(TOP_RIGHT);
         return sb.toString();
     }
 
-    private static String topMiddle(Carta card) {
+    private static String bottomBorder() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(BOTTOM_LEFT);
+        for (int i = 0; i < 8; i++)
+            sb.append(HORIZONTAL);
+        sb.append(BOTTOM_RIGHT);
+        return sb.toString();
+    }
+
+    private static String middleValueSuit(Carta card, int position) {
         StringBuilder sb = new StringBuilder();
 
-        String value;
-        String suit;
+        String value = cardValueToString(card);
+        String suit = cardSuitToString(card);
 
+        if (position == 1) {
+            sb.append(VERTICAL).append(value).append(suit);
+            for (int i = 0; i < 4; i++) {
+                sb.append(BLANK);
+            }
+            sb.append(VERTICAL);
+            return sb.toString();
+        } else {
+            sb.append(VERTICAL);
+            for (int i = 0; i < 4; i++) {
+                sb.append(BLANK);
+            }
+            sb.append(value).append(suit).append(VERTICAL);
+            return sb.toString();
+        }
+    }
 
-        sb.append(VERTICAL).append(" ").append(BLANK).append(BLANK).append(BLANK).append(BLANK).append(VERTICAL);
+    private static String middle() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(VERTICAL);
+        for (int i = 0; i < 8; i++)
+            sb.append(" ");
+        sb.append(VERTICAL);
         return sb.toString();
     }
 
-    private String cardValueToString(Carta card) {
+    private static String cardValueToString(Carta card) {
         switch (card.getValor().getValor()) {
             case 1 :
                 return " A";
@@ -135,18 +159,19 @@ public class Output {
                 return "XX";
         }
     }
-    private String cardSuitToString(Carta card) {
+
+    private static String cardSuitToString(Carta card) {
         switch (card.getPalo()) {
             case TREBOL:
-                return " ♣";
+                return " " + SPADE;
             case CORAZONES:
-                return " ♥";
+                return " " + HEART;
             case PICAS:
-                return " ♠";
+                return " " + CLUB;
             case DIAMANTES:
-                return " ♦";
+                return " " + DIAMOND;
         }
-        return " X";
+        return "X";
     }
 
 }
