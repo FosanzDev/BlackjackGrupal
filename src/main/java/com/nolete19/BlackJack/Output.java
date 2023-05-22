@@ -104,14 +104,49 @@ public class Output {
     private static String topMiddle(Carta card) {
         StringBuilder sb = new StringBuilder();
 
+        String value;
+        String suit;
 
 
-
-
-
-
-        sb.append(VERTICAL).append("").append(BLANK).append(BLANK).append(BLANK).append(BLANK).append(VERTICAL);
+        sb.append(VERTICAL).append(" ").append(BLANK).append(BLANK).append(BLANK).append(BLANK).append(VERTICAL);
         return sb.toString();
+    }
+
+    private String cardValueToString(Carta card) {
+        switch (card.getValor().getValor()) {
+            case 1 :
+                return " A";
+            case 2, 3, 4, 5, 6, 7, 8, 9:
+                return " " + String.valueOf(card.getValor().getValor());
+            case 10:
+                switch (card.getValor()) {
+                    case DIEZ:
+                        return "10";
+                    case J:
+                        return " J";
+                    case Q:
+                        return " Q";
+                    case K:
+                        return " K";
+                    default:
+                        return "XX";
+                }
+            default:
+                return "XX";
+        }
+    }
+    private String cardSuitToString(Carta card) {
+        switch (card.getPalo()) {
+            case TREBOL:
+                return " ♣";
+            case CORAZONES:
+                return " ♥";
+            case PICAS:
+                return " ♠";
+            case DIAMANTES:
+                return " ♦";
+        }
+        return " X";
     }
 
 }
