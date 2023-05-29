@@ -1,37 +1,57 @@
 package com.nolete19.BlackJack.Jugadores;
 
 import com.nolete19.BlackJack.Carta;
+import com.nolete19.BlackJack.Mano;
+import com.nolete19.BlackJack.Mesa;
+import com.nolete19.BlackJack.Valores;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+public abstract class Jugador {
 
-public class Jugador {
-    private List<Carta> mano;
-    private int puntaje;
+    String nombre;
+    Mano mano;
+    int saldo;
+    int puntuacion;
+    Mesa mesa;
 
     //Constructor
-    public Jugador() {
-        this.mano = new ArrayList<>();
-        this.puntaje = 0;
+    public Jugador(String nombre, int saldo, Mesa mesa) {
+        this.nombre = nombre;
+        this.saldo = saldo;
+        mano = new Mano();
+        this.mesa = mesa;
     }
 
-    // para calcular el puntaje total de las cartas en la mano del jugador
-    public void tomarCarta(Carta carta) {
-        mano.add(carta);
+    /**
+     * Añade una carta a la mano del jugador
+     * @param carta Carta a añadir
+     */
+    public void addCarta(Carta carta) {
+        mano.addCarta(carta);
     }
 
-    //Método para calcular el puntaje total de las cartas en la mano del jugador
-    public int calcularPuntaje() {
-        puntaje = 0;
+
+    /**
+     * Calcula la puntuación de la mano del jugador
+     * @return Integer con la puntuación de la mano
+     */
+    public int calcularPuntuacion() {
+        puntuacion = 0;
         for (Carta carta : mano) {
-            puntaje += carta.getValor().getValor();
-            // Se suman los valores de las cartas
-            // de la mano del jugador y se guardan en la variable puntaje
+            if (carta.getValor() == Valores.AS) {
+                if (puntuacion + 11 > 21) {
+                    puntuacion += 1;
+                } else {
+                    puntuacion += 11;
+                }
+            } else {
+                puntuacion += carta.getValor().getIntegerValue();
+            }
         }
-        return puntaje;
-        // Se devuelve el puntaje total de las cartas de la mano del jugador
+
+        return puntuacion;
     }
+
+    // @FosanzDev: Es necesario este método?
 
     //Método para mostrar las cartas en la mano del jugador
     public void mostrarMano() {
@@ -42,12 +62,24 @@ public class Jugador {
         }
     }
 
-    //Método para tomar una decisión opcional
-    public String tomarDecisionOpcional() {
-        //aquí podrías implementar la lógica para tomar una decisión opcional
-        //En este ejemplo, no hay una implementación específica, solo se devuelve una cadena
-        return "Decisión tomada";
+    /**
+     * Método para obtener la mano del jugador (sus cartas)
+     * @return Objeto Mano con la mano del jugador
+     */
+    public Mano getMano() {
+        return mano;
     }
+
+    /**
+     * Limpia la mano del jugador
+     */
+    public void clear() {
+        mano.clear();
+    }
+
+    public abstract Opciones opcion();
+    public abstract int apuesta();
+
 }
 
 
