@@ -9,7 +9,7 @@ public enum Valores {
         this.valor = valor;
     }
 
-    public int getValor() {
+    public int getIntegerValue() {
         return valor;
     }
 }

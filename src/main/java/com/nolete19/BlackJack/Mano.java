@@ -1,7 +1,8 @@
 package com.nolete19.BlackJack;
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class Mano {
+public class Mano implements Iterable<Carta>{
     private ArrayList<Carta> cartas;
     private int puntuacion = 0;
     private boolean isBlackJack;
@@ -9,6 +10,17 @@ public class Mano {
     // Constructor con el arrayList inicializado
     public Mano() {
         cartas = new ArrayList<>();
+    }
+
+    public Mano getUniqueCard(){
+        Mano mano = new Mano();
+        try{
+            mano.addCarta(cartas.get(0));
+        } catch (IndexOutOfBoundsException e){
+            //Do nothing
+        }
+
+        return mano;
     }
 
     /**
@@ -21,11 +33,11 @@ public class Mano {
         boolean diez = false;
 
         for (Carta carta : cartas){
-            puntuacion = puntuacion + carta.getValor().getValor();
+            puntuacion = puntuacion + carta.getValor().getIntegerValue();
             if (cartas.size() == 2){
                 if (carta.getValor() == Valores.AS){
                     as = true;
-                }else if (carta.getValor().getValor() == 10){
+                }else if (carta.getValor().getIntegerValue() == 10){
                     diez = true;
                 }
             }
@@ -75,10 +87,16 @@ public class Mano {
      */
     @Override
     public String toString() {
-        return "Mano{" +
-                "cartas=" + cartas +
-                ", puntuacion=" + puntuacion +
-                ", isBlackJack=" + isBlackJack +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        for (Carta carta : cartas){
+            sb.append(carta.toString());
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
+    @Override
+    public Iterator<Carta> iterator() {
+        return cartas.iterator();
     }
 }
