@@ -48,6 +48,7 @@ public class StrategyNeutral extends Strategy {
         } else {
             return Opciones.PLANTARSE;
         }
+        return Opciones.PLANTARSE;
     }
 
 

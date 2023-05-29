@@ -46,5 +46,6 @@ public class StrategyRisky extends Strategy {
         } else {
             return Opciones.PLANTARSE;
         }
+        return Opciones.PLANTARSE;
     }
 }

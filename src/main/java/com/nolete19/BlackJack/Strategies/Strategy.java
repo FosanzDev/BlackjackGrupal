@@ -36,4 +36,9 @@ public abstract class Strategy {
     public Opciones opcionHouse(Mano house) {
         return null;
     }
+
+    public int apuesta(int saldo) {
+
+        return 0;
+    }
 }
