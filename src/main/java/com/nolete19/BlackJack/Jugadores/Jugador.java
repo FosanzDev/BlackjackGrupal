@@ -7,11 +7,11 @@ import com.nolete19.BlackJack.Valores;
 
 public abstract class Jugador {
 
-    String nombre;
-    Mano mano;
-    int saldo;
-    int puntuacion;
-    Mesa mesa;
+    protected String nombre;
+    protected Mano mano;
+    protected int saldo;
+    protected int puntuacion;
+    protected Mesa mesa;
 
     //Constructor
     public Jugador(String nombre, int saldo, Mesa mesa) {
@@ -36,16 +36,20 @@ public abstract class Jugador {
      */
     public int calcularPuntuacion() {
         puntuacion = 0;
+        int numAces = 0;
+
         for (Carta carta : mano) {
             if (carta.getValor() == Valores.AS) {
-                if (puntuacion + 11 > 21) {
-                    puntuacion += 1;
-                } else {
-                    puntuacion += 11;
-                }
+                numAces++;
+                puntuacion += 11;
             } else {
                 puntuacion += carta.getValor().getIntegerValue();
             }
+        }
+
+        while (puntuacion > 21 && numAces > 0) {
+            puntuacion -= 10;
+            numAces--;
         }
 
         return puntuacion;
