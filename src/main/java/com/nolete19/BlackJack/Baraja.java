@@ -46,21 +46,23 @@ public class Baraja {
     }
 
     /**
-     * Este método se encarga de sacar una carta aleatoria de la baraja mezclada, para poder asignarla
+     * Este método se encarga de sacar la carta que siempre esta mas arriba de la baraja mezclada, para poder asignarla
      * a los jugadores que la deseen.
      * @return Retorna un objeto carta con el que poder jugar.
      */
-    public Carta sacarCarta(){
-        Random random = new Random();
-        int posicionRandom;
+    public Carta sacarCartaPila() {
         Carta cartaSeleccionada;
-        do {
-            posicionRandom = random.nextInt(CANT_CARTAS);
-            cartaSeleccionada = cartas[posicionRandom];
-        }while(cartas[posicionRandom] == null);
-        cartas[posicionRandom] = null;
-        return cartaSeleccionada;
+        for(int i = 0; i < cartas.length;i++){
+            if(cartas[i] != null){
+                cartaSeleccionada = cartas[i];
+                cartas[i] = null;
+                return cartaSeleccionada;
+            }
+        }
+        return null;
     }
+
+
 
     //Getters
     public Carta[] getCartas() {
