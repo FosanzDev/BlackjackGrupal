@@ -3,7 +3,13 @@ package com.nolete19.BlackJack.Strategies;
 import com.nolete19.BlackJack.Jugadores.Opciones;
 import com.nolete19.BlackJack.Mano;
 
-public class StrategyRisky extends Strategy {
+public class StrategyRisky implements Strategy {
+
+    private int saldoIncial;
+
+    public StrategyRisky(int saldoIncial) {
+        this.saldoIncial = saldoIncial;
+    }
     @Override
     public Opciones opcion(Mano player, Mano house) {
 
@@ -48,4 +54,10 @@ public class StrategyRisky extends Strategy {
         }
         return Opciones.PLANTARSE;
     }
+
+    @Override
+    public int apuesta(int saldo) {
+        return 0;
+    }
+
 }

@@ -3,7 +3,7 @@ package com.nolete19.BlackJack.Strategies;
 import com.nolete19.BlackJack.Jugadores.Opciones;
 import com.nolete19.BlackJack.Mano;
 
-public class StrategyCountCards extends Strategy {
+public class StrategyCountCards implements Strategy {
 
     @Override
     public Opciones opcion(Mano player, Mano house) {
@@ -48,6 +48,11 @@ public class StrategyCountCards extends Strategy {
             return Opciones.PLANTARSE;
         }
         return Opciones.PLANTARSE;
+    }
+
+    @Override
+    public int apuesta(int saldo) {
+        return 0;
     }
 
 }

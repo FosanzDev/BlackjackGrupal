@@ -163,11 +163,11 @@ public class Output {
     }
 
     private static String cardValueToString(Carta card) {
-        switch (card.getValor().getValor()) {
+        switch (card.getValor().getIntegerValue()) {
             case 1 :
                 return "A";
             case 2, 3, 4, 5, 6, 7, 8, 9:
-                return String.valueOf(card.getValor().getValor()) ;
+                return String.valueOf(card.getValor().getIntegerValue()) ;
             case 10:
                 switch (card.getValor()) {
                     case DIEZ:
