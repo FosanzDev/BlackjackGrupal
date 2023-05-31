@@ -1,4 +1,4 @@
-package com.nolete19.BlackJack;
+package com.nolete19.BlackJack.Cartas;
 import java.util.Random;
 
 public class Baraja {

@@ -1,6 +1,5 @@
 package com.nolete19.BlackJack.Jugadores;
 
-import com.nolete19.BlackJack.Mano;
 import com.nolete19.BlackJack.Mesa;
 import com.nolete19.BlackJack.Strategy;
 
@@ -17,14 +16,10 @@ public class JugadorIA extends Jugador {
         return mano.getUniqueCard();
     }
 
-    public Mano getMano() {
-        return mano;
-    }
-
     @Override
     public Opciones opcion() {
         return strategy.opcion(mano, mesa.getManoCrupier());
-    }
+    } 
 
     @Override
     public int apuesta() {
