@@ -1,7 +1,7 @@
 package com.nolete19.BlackJack.Strategies;
 
 import com.nolete19.BlackJack.Jugadores.Opciones;
-import com.nolete19.BlackJack.Mano;
+import com.nolete19.BlackJack.Jugadores.Mano;
 
 public interface Strategy {
 
@@ -13,7 +13,7 @@ public interface Strategy {
      * @param house Hand that the house has. Mano que tiene el crupier.
      * @return Returns an Opcion enum. Devuelve un Opcion enum.
      */
-    public Opciones opcion(Mano player, Mano house);
+    public Opciones opcion(Mano player, Mano house) ;
 
     /**
      * Gets the hand of the player and decides what to do. Coge la mano del jugador y decide que hacer.

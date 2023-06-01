@@ -1,7 +1,7 @@
 package com.nolete19.BlackJack.Strategies;
 
 import com.nolete19.BlackJack.Jugadores.Opciones;
-import com.nolete19.BlackJack.Mano;
+import com.nolete19.BlackJack.Jugadores.Mano;
 
 public class StrategyNeutral implements Strategy {
 
