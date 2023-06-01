@@ -1,4 +1,4 @@
-package com.nolete19.BlackJack;
+package com.nolete19.BlackJack.Utils;
 
 import com.nolete19.BlackJack.Exceptions.NotANumber;
 import com.nolete19.BlackJack.Exceptions.NotInRange;

@@ -1,6 +1,9 @@
-package com.nolete19.BlackJack;
+package com.nolete19.BlackJack.Jugadores;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import com.nolete19.BlackJack.Cartas.Carta;
+import com.nolete19.BlackJack.Cartas.Valores;
 
 public class Mano implements Iterable<Carta>{
     private ArrayList<Carta> cartas;
