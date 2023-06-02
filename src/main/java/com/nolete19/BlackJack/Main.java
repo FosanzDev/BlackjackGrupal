@@ -3,6 +3,14 @@ package com.nolete19.BlackJack;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        Carta card1 = new Carta(Palos.DIAMANTES, Valores.CINCO);
+        Carta card2 = new Carta(Palos.CORAZONES, Valores.DIEZ);
+        Carta card3 = new Carta(Palos.PICAS, Valores.K);
+
+        Carta[] cardArr = {card2, card1, card3};
+        System.out.println(Output.getCards(cardArr));
+
+
+
     }
 }
