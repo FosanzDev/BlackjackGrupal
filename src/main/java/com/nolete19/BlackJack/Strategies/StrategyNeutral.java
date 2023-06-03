@@ -37,6 +37,7 @@ public class StrategyNeutral implements Strategy {
         }
     }
 
+
     @Override
     public Opciones opcionHouse(Mano house) {
 

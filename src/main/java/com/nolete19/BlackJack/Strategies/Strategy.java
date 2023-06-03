@@ -15,6 +15,7 @@ public interface Strategy {
      */
     public Opciones opcion(Mano player, Mano house) ;
 
+
     /**
      * Gets the hand of the player and decides what to do. Coge la mano del jugador y decide que hacer.
      *

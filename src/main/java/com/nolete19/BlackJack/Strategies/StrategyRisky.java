@@ -50,6 +50,7 @@ public class StrategyRisky implements Strategy {
         return Opciones.PLANTARSE;
     }
 
+
     @Override
     public int apuesta(int saldo) {
         int apuestaGrande = (int) (saldo * 0.50);

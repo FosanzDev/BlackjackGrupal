@@ -22,6 +22,7 @@ public class StrategyConservative implements Strategy {
         return null;
     }
 
+
     @Override
     public Opciones opcionPlayer(Mano player) {
 
