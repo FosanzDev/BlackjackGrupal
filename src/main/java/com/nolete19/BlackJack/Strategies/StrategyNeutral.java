@@ -43,7 +43,6 @@ public class StrategyNeutral implements Strategy {
         if (!house.isBlackJack()) {
             if (house.calcularPuntuacion() < 17) {
                 return Opciones.PEDIR_CARTA;
-
             }
         } else {
             return Opciones.PLANTARSE;

@@ -42,7 +42,6 @@ public class StrategyRisky implements Strategy {
         if (!house.isBlackJack()) {
             if (house.calcularPuntuacion() < 19) {
                 return Opciones.PEDIR_CARTA;
-
             }
         } else {
             return Opciones.PLANTARSE;
