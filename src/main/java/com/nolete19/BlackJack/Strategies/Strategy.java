@@ -1,6 +1,8 @@
 package com.nolete19.BlackJack.Strategies;
 
 import com.nolete19.BlackJack.Jugadores.Opciones;
+import com.nolete19.BlackJack.Mesa;
+import com.nolete19.BlackJack.Jugadores.Jugador;
 import com.nolete19.BlackJack.Jugadores.Mano;
 
 public interface Strategy {
@@ -31,6 +33,6 @@ public interface Strategy {
      */
     public Opciones opcionHouse(Mano house);
 
-    public int apuesta(int saldo);
+    public int apuesta(int saldo, Mesa mesa, Jugador jugador);
 
 }
