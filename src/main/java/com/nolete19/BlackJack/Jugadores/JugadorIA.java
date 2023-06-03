@@ -32,7 +32,7 @@ public class JugadorIA extends Jugador {
 
     @Override
     public int apuesta() {
-        apuesta = strategy.apuesta(saldo);
+        apuesta = strategy.apuesta(saldo, mesa, this);
         return apuesta;
     }
 

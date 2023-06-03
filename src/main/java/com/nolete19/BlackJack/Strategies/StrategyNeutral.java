@@ -1,6 +1,8 @@
 package com.nolete19.BlackJack.Strategies;
 
 import com.nolete19.BlackJack.Jugadores.Opciones;
+import com.nolete19.BlackJack.Mesa;
+import com.nolete19.BlackJack.Jugadores.Jugador;
 import com.nolete19.BlackJack.Jugadores.Mano;
 
 import java.util.Random;
@@ -51,6 +53,9 @@ public class StrategyNeutral implements Strategy {
         return Opciones.PLANTARSE;
     }
 
+    // We apply the basic strategy to calculate the bet
+    // This strategy bets 20% of the balance if the score is more than 17
+    // If the score is less than 15, it bets 10% of the balance
     @Override
     public int apuesta(int saldo) {
         int apuestaGrande = (int) (saldo * 0.30);

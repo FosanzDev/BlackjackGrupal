@@ -1,6 +1,8 @@
 package com.nolete19.BlackJack.Strategies;
 
 import com.nolete19.BlackJack.Jugadores.Opciones;
+import com.nolete19.BlackJack.Mesa;
+import com.nolete19.BlackJack.Jugadores.Jugador;
 import com.nolete19.BlackJack.Jugadores.Mano;
 
 import java.util.Random;
@@ -51,6 +53,13 @@ public class StrategyConservative implements Strategy {
         return Opciones.PLANTARSE;
     }
 
+    /**
+     * Apuesta un 10% del saldo si tiene entre 15 y 20 puntos, y un 5% si tiene menos de 15 puntos
+     * @param saldo Saldo del jugador
+     * @param minBet Apuesta minima
+     * @param maxBet Apuesta maxima
+     * @return Apuesta
+     */
     @Override
     public int apuesta(int saldo) {
         int apuestaGrande = (int) (saldo * 0.20);

@@ -1,6 +1,8 @@
 package com.nolete19.BlackJack.Strategies;
 
 import com.nolete19.BlackJack.Jugadores.Opciones;
+import com.nolete19.BlackJack.Mesa;
+import com.nolete19.BlackJack.Jugadores.Jugador;
 import com.nolete19.BlackJack.Jugadores.Mano;
 
 public interface Strategy {
@@ -32,11 +34,6 @@ public interface Strategy {
      */
     public Opciones opcionHouse(Mano house);
 
-    /**
-     * Returns a random number from a % of the saldo. Devuelve un porcentaje del dinero que se ha introducido.
-     * @param saldo Amount of money that the bot has. Total de dinero que tiene.
-     * @return returns an amount of money to bet, devuelve una cantidad de dinero para apostar.
-     */
-    public int apuesta(int saldo);
+    public int apuesta(int saldo, Mesa mesa, Jugador jugador);
 
 }

@@ -1,15 +1,11 @@
 package com.nolete19.BlackJack;
 
-import com.nolete19.BlackJack.Utils.IO;
-
 public class Juego implements Runnable {
 
     private Mesa mesa;
-    private IO ioInterface;
 
     public Juego(Mesa mesa) {
         this.mesa = mesa;
-        this.ioInterface = mesa.getIoInterface();
     }
 
     @Override
@@ -25,8 +21,6 @@ public class Juego implements Runnable {
                 // Fase de juego
                 mesa.jugarRonda();
 
-                ioInterface.print("Fin de la ronda\n", true);
-
                 // Fase de crupier
                 mesa.jugarCrupier();
 
@@ -36,5 +30,7 @@ public class Juego implements Runnable {
         } catch (InterruptedException e) {
             System.out.println("Ha ocurrido un error inesperado.");
         }
+
+        mesa.getIoInterface().print("El juego ha terminado. No hay mas jugadores humanos", true);
     }
 }
