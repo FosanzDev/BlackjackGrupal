@@ -1,9 +1,13 @@
 package com.nolete19.BlackJack;
 
+<<<<<<< HEAD
 
 import com.nolete19.BlackJack.Cartas.Carta;
 import com.nolete19.BlackJack.Cartas.Valores;
 
+=======
+import com.nolete19.BlackJack.Cartas.*;
+>>>>>>> 0fc151700ea3a8a22c53a406bad7b1bf76feb5ba
 public class Output {
 
     static final String TOP_LEFT = "┌";

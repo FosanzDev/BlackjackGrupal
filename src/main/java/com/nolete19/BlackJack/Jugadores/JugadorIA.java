@@ -16,9 +16,20 @@ public class JugadorIA extends Jugador {
         this.strategy = randStrategy();
     }
 
+<<<<<<< HEAD
     public JugadorIA(String nombre, boolean isHouse) {
         super(nombre);
         this.strategy = new StrategyNeutral();
+=======
+    public JugadorIA(String nombre, int dinero, Mesa mesa, boolean isHouse) {
+        super(nombre, dinero, mesa);
+        if (isHouse) {
+            this.strategy = new StrategyNeutral();
+        } else {
+            this.strategy = randStrategy();
+        }
+
+>>>>>>> 0fc151700ea3a8a22c53a406bad7b1bf76feb5ba
     }
 
     public Mano getVisibleHand() {
