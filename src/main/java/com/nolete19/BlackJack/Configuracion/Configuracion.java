@@ -1,27 +1,36 @@
 package com.nolete19.BlackJack.Configuracion;
-import com.nolete19.BlackJack.Utils.IO;
 
 import java.util.Scanner;
 
 public class Configuracion {
-    private int numeroJugadores;
-    private double apuestaBase;
-    private double apuestaMaxima;
-    private double saldoInicialJugadores;
-    private double saldoInicialBanca;
+    public int numeroJugadores;
+    public double apuestaBase;
+    public double apuestaMaxima;
+    public double saldoInicialJugadores;
+    public double saldoInicialBanca;
+    public int milisegundosEspera;
+    public int multiplicadorBlackjack;
+    public int multiplicadorGanadorBasico;
     public static Scanner scanner = new Scanner(System.in);
 
-    //Configuración default de la mesa de los jugadores
+    //Configuraciï¿½n default de la mesa de los jugadores
     public Configuracion() {
         //Numero de jugadores por defecto incluyendo usuario
         numeroJugadores = 5 ;
         //Apuesta base
         apuestaBase = 10.0;
-        //Apuesta máxima
+        //Apuesta mï¿½xima
         apuestaMaxima = 10.0;
         //Saldo inicial
         saldoInicialJugadores = 100.0;
         saldoInicialBanca = 200.0;
+
+        //Tiempo de espera entre turnos
+        milisegundosEspera = 1000;
+
+        //Multiplicador de blackjack
+        multiplicadorBlackjack = 2;
+        multiplicadorGanadorBasico = 1;
     }
     public void cambiarNumeroJugadores() {
         System.out.println("Introduce el numero de jugadores:");
@@ -36,7 +45,7 @@ public class Configuracion {
     }
 
     public void cambiarApuestaMaxima() {
-        System.out.println("Introduce el valor de la apuesta máxima:");
+        System.out.println("Introduce el valor de la apuesta mï¿½xima:");
         apuestaMaxima = scanner.nextInt();
         scanner.nextLine();
     }
