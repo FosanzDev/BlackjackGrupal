@@ -7,11 +7,6 @@ import java.util.Random;
 
 public class StrategyNeutral implements Strategy {
 
-    private int saldoIncial;
-
-    public StrategyNeutral(int saldoIncial) {
-        this.saldoIncial = saldoIncial;
-    }
     @Override
     public Opciones opcion(Mano player, Mano house) {
 
@@ -42,7 +37,6 @@ public class StrategyNeutral implements Strategy {
         }
     }
 
-
     @Override
     public Opciones opcionHouse(Mano house) {
 
@@ -70,6 +64,5 @@ public class StrategyNeutral implements Strategy {
         pos = rand.nextInt((MAX - MIN) + 1) - MIN;
 
         return apuestaArr[pos];
-
     }
 }

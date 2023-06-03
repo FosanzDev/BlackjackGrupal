@@ -7,9 +7,6 @@ import java.util.Random;
 
 public class StrategyConservative implements Strategy {
 
-    public StrategyConservative(int saldoIncial) {
-    }
-
     @Override
     public Opciones opcion(Mano player, Mano house) {
 
