@@ -57,7 +57,7 @@ public class StrategyNeutral implements Strategy {
     // This strategy bets 20% of the balance if the score is more than 17
     // If the score is less than 15, it bets 10% of the balance
     @Override
-    public int apuesta(int saldo) {
+    public int apuesta(int saldo, Mesa mesa, Jugador jugador) {
         int apuestaGrande = (int) (saldo * 0.30);
         int apuestaMedio = (int) (saldo * 0.25);
         int apuestaPequeno = (int) (saldo * 0.20);

@@ -61,7 +61,7 @@ public class StrategyConservative implements Strategy {
      * @return Apuesta
      */
     @Override
-    public int apuesta(int saldo) {
+    public int apuesta(int saldo, Mesa mesa, Jugador jugador) {
         int apuestaGrande = (int) (saldo * 0.20);
         int apuestaMedio = (int) (saldo * 0.15);
         int apuestaPequeno = (int) (saldo * 0.10);

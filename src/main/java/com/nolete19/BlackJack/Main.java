@@ -57,7 +57,11 @@ public class Main {
                     break;
 
                 case 3:
-                    config.enterConfigMenu(ioInterface);
+                    //config.enterConfigMenu(ioInterface);
+                    break;
+
+                case 4:
+                    continues = false;
                     break;
             }
 
