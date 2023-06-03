@@ -20,7 +20,7 @@ public class JugadorIA extends Jugador {
     public JugadorIA(String nombre, int dinero, Mesa mesa, boolean isHouse) {
         super(nombre, dinero, mesa);
         if (isHouse) {
-            this.strategy = new StrategyNeutral(saldo);
+            this.strategy = new StrategyNeutral();
         } else {
             this.strategy = randStrategy();
         }
@@ -42,7 +42,7 @@ public class JugadorIA extends Jugador {
     }
 
     private Strategy randStrategy() {
-        Strategy[] strategies = {new StrategyNeutral(saldo), new StrategyConservative(saldo), new StrategyRisky(saldo)};
+        Strategy[] strategies = {new StrategyNeutral(), new StrategyConservative(), new StrategyRisky()};
         final int MIN = 0;
         final int MAX = strategies.length - 1;
         Random rand = new Random();

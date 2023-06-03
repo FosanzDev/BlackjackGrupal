@@ -64,6 +64,5 @@ public class StrategyConservative implements Strategy {
         pos = rand.nextInt((MAX - MIN) + 1) - MIN;
 
         return apuestaArr[pos];
-
     }
 }
