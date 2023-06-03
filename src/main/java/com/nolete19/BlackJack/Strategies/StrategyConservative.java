@@ -27,7 +27,7 @@ public class StrategyConservative implements Strategy {
     public Opciones opcionPlayer(Mano player) {
 
         if (!player.isBlackJack()) {
-            if (player.calcularPuntuacion() < 15) {
+            if (player.getPuntuacion() < 15) {
                 return Opciones.PEDIR_CARTA;
             } else {
                 return Opciones.PLANTARSE;
@@ -42,7 +42,7 @@ public class StrategyConservative implements Strategy {
     public Opciones opcionHouse(Mano house) {
 
         if (!house.isBlackJack()) {
-            if (house.calcularPuntuacion() < 15) {
+            if (house.getPuntuacion() < 15) {
                 return Opciones.PEDIR_CARTA;
             }
         } else {

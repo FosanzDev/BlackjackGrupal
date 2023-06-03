@@ -1,16 +1,26 @@
 package com.nolete19.BlackJack;
 
+import java.util.Scanner;
+
+import com.nolete19.BlackJack.Configuracion.Configuracion;
+import com.nolete19.BlackJack.Estadisticas.Estadisticas;
+import com.nolete19.BlackJack.Jugadores.JugadorHumano;
+import com.nolete19.BlackJack.Jugadores.JugadorIA;
+import com.nolete19.BlackJack.Utils.IO;
+
 public class Main {
 
     public static void main(String[] args) {
-        Carta card1 = new Carta(Palos.DIAMANTES, Valores.CINCO);
-        Carta card2 = new Carta(Palos.CORAZONES, Valores.DIEZ);
-        Carta card3 = new Carta(Palos.PICAS, Valores.K);
+        Configuracion configuracion = new Configuracion();
+        Estadisticas estadisticas = new Estadisticas();
+        IO ioInterface = new IO(new Scanner(System.in));
+        Mesa mesa = new Mesa(10, 100, ioInterface, configuracion, estadisticas);
+        Juego juego = new Juego(mesa);
+        JugadorHumano jugador = new JugadorHumano("Jugador", 1000);
+        JugadorIA crupier = new JugadorIA("JugadorIA", 2000);
+        mesa.addJugador(jugador);
+        mesa.addJugador(crupier);
 
-        Carta[] cardArr = {card2, card1, card3};
-        System.out.println(Output.getCards(cardArr));
-
-
-
+        juego.run();
     }
 }

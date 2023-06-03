@@ -1,6 +1,5 @@
 package com.nolete19.BlackJack.Jugadores;
 
-import com.nolete19.BlackJack.Mesa;
 import com.nolete19.BlackJack.Strategies.Strategy;
 import com.nolete19.BlackJack.Strategies.StrategyConservative;
 import com.nolete19.BlackJack.Strategies.StrategyNeutral;
@@ -12,19 +11,14 @@ public class JugadorIA extends Jugador {
     
     private Strategy strategy;
 
-    public JugadorIA(String nombre, int dinero, Mesa mesa, Strategy strategy) {
-        super(nombre, dinero, mesa);
-        this.strategy = strategy;
+    public JugadorIA(String nombre, int dinero) {
+        super(nombre, dinero);
+        this.strategy = randStrategy();
     }
 
-    public JugadorIA(String nombre, int dinero, Mesa mesa, boolean isHouse) {
-        super(nombre, dinero, mesa);
-        if (isHouse) {
-            this.strategy = new StrategyNeutral();
-        } else {
-            this.strategy = randStrategy();
-        }
-
+    public JugadorIA(String nombre, boolean isHouse) {
+        super(nombre);
+        this.strategy = new StrategyNeutral();
     }
 
     public Mano getVisibleHand() {
@@ -38,7 +32,8 @@ public class JugadorIA extends Jugador {
 
     @Override
     public int apuesta() {
-        return strategy.apuesta(saldo);
+        apuesta = strategy.apuesta(saldo);
+        return apuesta;
     }
 
     private Strategy randStrategy() {
@@ -49,8 +44,5 @@ public class JugadorIA extends Jugador {
         int randStratPos = rand.nextInt((MAX - MIN)+ 1) + MIN;
         return strategies[randStratPos];
     }
-
-
-
 
 }

@@ -27,7 +27,7 @@ public class StrategyRisky implements Strategy {
     public Opciones opcionPlayer(Mano player) {
 
         if (!player.isBlackJack()) {
-            if (player.calcularPuntuacion() < 19) {
+            if (player.getPuntuacion() < 19) {
                 return Opciones.PEDIR_CARTA;
             } else {
                 return Opciones.PLANTARSE;
@@ -41,7 +41,7 @@ public class StrategyRisky implements Strategy {
     public Opciones opcionHouse(Mano house) {
 
         if (!house.isBlackJack()) {
-            if (house.calcularPuntuacion() < 19) {
+            if (house.getPuntuacion() < 19) {
                 return Opciones.PEDIR_CARTA;
             }
         } else {
