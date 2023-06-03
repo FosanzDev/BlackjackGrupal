@@ -52,7 +52,7 @@ public class Mesa {
 
     
     public void repartirCarta(Jugador jugador) throws UnexistentPlayer {
-        jugador.addCarta(baraja.sacarCarta());
+        jugador.addCarta(baraja.sacarCartaPila());
     }
 
 

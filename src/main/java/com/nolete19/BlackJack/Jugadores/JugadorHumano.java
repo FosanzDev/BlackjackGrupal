@@ -1,8 +1,6 @@
 package com.nolete19.BlackJack.Jugadores;
-
 import java.util.Scanner;
-
-import com.nolete19.BlackJack.IO;
+import com.nolete19.BlackJack.Utils.IO;
 import com.nolete19.BlackJack.Mesa;
 
 public class JugadorHumano extends Jugador {

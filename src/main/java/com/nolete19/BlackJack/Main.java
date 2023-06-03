@@ -1,14 +1,11 @@
 package com.nolete19.BlackJack;
 
+import com.nolete19.BlackJack.Estadisticas.Estadisticas;
+
 public class Main {
 
     public static void main(String[] args) {
-        Carta card1 = new Carta(Palos.DIAMANTES, Valores.CINCO);
-        Carta card2 = new Carta(Palos.CORAZONES, Valores.DIEZ);
-        Carta card3 = new Carta(Palos.PICAS, Valores.K);
 
-        Carta[] cardArr = {card2, card1, card3};
-        System.out.println(Output.getCards(cardArr));
 
 
 

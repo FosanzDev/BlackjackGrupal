@@ -1,9 +1,8 @@
 package com.nolete19.BlackJack.Jugadores;
-
-import com.nolete19.BlackJack.Carta;
-import com.nolete19.BlackJack.Mano;
+import com.nolete19.BlackJack.Cartas.Valores;
 import com.nolete19.BlackJack.Mesa;
-import com.nolete19.BlackJack.Valores;
+import com.nolete19.BlackJack.Cartas.Carta;
+
 
 public abstract class Jugador {
 
