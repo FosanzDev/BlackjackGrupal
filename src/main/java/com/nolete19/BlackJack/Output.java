@@ -1,6 +1,6 @@
 package com.nolete19.BlackJack;
 
-
+import com.nolete19.BlackJack.Cartas.*;
 public class Output {
 
     static final String TOP_LEFT = "┌";
@@ -28,13 +28,6 @@ public class Output {
         String[] configMenuItems = {"Cambiar numero de jugadores", "Cambiar la apuesta base", "Cambiar el saldo inicial de los jugadores"};
         return Menu.menu("Configuracion", configMenuItems);
 
-    }
-
-    public static String getCards(Carta card) {
-
-
-
-        return "";
     }
 
     public static String getCards(Carta[] cards) {

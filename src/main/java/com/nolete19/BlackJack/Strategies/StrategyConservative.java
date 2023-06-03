@@ -3,6 +3,8 @@ package com.nolete19.BlackJack.Strategies;
 import com.nolete19.BlackJack.Jugadores.Opciones;
 import com.nolete19.BlackJack.Jugadores.Mano;
 
+import java.util.Random;
+
 public class StrategyConservative implements Strategy {
 
     public StrategyConservative(int saldoIncial) {
@@ -45,7 +47,6 @@ public class StrategyConservative implements Strategy {
         if (!house.isBlackJack()) {
             if (house.calcularPuntuacion() < 15) {
                 return Opciones.PEDIR_CARTA;
-
             }
         } else {
             return Opciones.PLANTARSE;
@@ -55,6 +56,17 @@ public class StrategyConservative implements Strategy {
 
     @Override
     public int apuesta(int saldo) {
-        return 0;
+        int apuestaGrande = (int) (saldo * 0.20);
+        int apuestaMedio = (int) (saldo * 0.15);
+        int apuestaPequeno = (int) (saldo * 0.10);
+        int[] apuestaArr = {apuestaGrande, apuestaMedio, apuestaPequeno};
+        int pos;
+        final int MAX = apuestaArr.length - 1;
+        final int MIN = 0;
+        Random rand = new Random();
+        pos = rand.nextInt((MAX - MIN) + 1) - MIN;
+
+        return apuestaArr[pos];
+
     }
 }
