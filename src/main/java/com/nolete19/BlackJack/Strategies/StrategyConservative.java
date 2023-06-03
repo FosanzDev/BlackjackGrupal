@@ -2,7 +2,6 @@ package com.nolete19.BlackJack.Strategies;
 
 import com.nolete19.BlackJack.Jugadores.Opciones;
 import com.nolete19.BlackJack.Mesa;
-import com.nolete19.BlackJack.Cartas.Carta;
 import com.nolete19.BlackJack.Jugadores.Jugador;
 import com.nolete19.BlackJack.Jugadores.Mano;
 

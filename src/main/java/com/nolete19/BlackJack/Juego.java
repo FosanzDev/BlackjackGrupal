@@ -30,5 +30,7 @@ public class Juego implements Runnable {
         } catch (InterruptedException e) {
             System.out.println("Ha ocurrido un error inesperado.");
         }
+
+        mesa.getIoInterface().print("El juego ha terminado. No hay mas jugadores humanos", true);
     }
 }

@@ -3,7 +3,6 @@ package com.nolete19.BlackJack;
 import com.nolete19.BlackJack.Cartas.Baraja;
 import com.nolete19.BlackJack.Configuracion.Configuracion;
 import com.nolete19.BlackJack.Estadisticas.Estadisticas;
-import com.nolete19.BlackJack.Exceptions.UnexistentPlayer;
 import com.nolete19.BlackJack.Jugadores.Jugador;
 import com.nolete19.BlackJack.Jugadores.JugadorHumano;
 import com.nolete19.BlackJack.Jugadores.JugadorIA;
@@ -24,11 +23,10 @@ public class Mesa {
     private Configuracion configuracion;
     private Estadisticas estadisticas;
 
-    public Mesa(int apuestaMinima, int apuestaMaxima, IO ioInterface, Configuracion configuracion,
-            Estadisticas estadisticas) {
+    public Mesa(IO ioInterface, Configuracion configuracion, Estadisticas estadisticas) {
         this.baraja = new Baraja();
-        this.apuestaMinima = apuestaMinima;
-        this.apuestaMaxima = apuestaMaxima;
+        this.apuestaMinima = configuracion.apuestaMinima;
+        this.apuestaMaxima = configuracion.apuestaMaxima;
         this.ioInterface = ioInterface;
         this.configuracion = configuracion;
         this.estadisticas = estadisticas;
@@ -150,7 +148,7 @@ public class Mesa {
                 // CASO 1.1: El crupier no tiene blackjack (Se le suma: apuesta * multiplicadorBlackjack)
                 if (!crupier.getMano().isBlackJack()) {
                     ioInterface.print(", gana a lo grande!", true);
-                    int dineroGanado = jugador.getApuesta() * configuracion.multiplicadorBlackjack;
+                    int dineroGanado = (int) (jugador.getApuesta() * configuracion.multiplicadorBlackjack);
                     ioInterface.print("Has ganado " + dineroGanado + "E", true);
                     jugador.addDinero(dineroGanado);
                     if (jugador instanceof JugadorHumano) {
@@ -179,7 +177,7 @@ public class Mesa {
                 // multiplicadorGanadorBasico)
                 else if (puntosCrupier < puntosJugador) {
                     ioInterface.print("El jugador tenía más puntos que el crupier!", true);
-                    int dineroGanado = jugador.getApuesta() * configuracion.multiplicadorGanadorBasico;
+                    int dineroGanado = (int) (jugador.getApuesta() * configuracion.multiplicadorGanadorBasico);
                     ioInterface.print("Has ganado " + dineroGanado + "E", true);
                     jugador.addDinero(dineroGanado);
                 }
@@ -196,6 +194,18 @@ public class Mesa {
             jugador.reset();
             crupier.reset();
         }
+
+        //Para evitar el ConcurrentModificationException creamos una lista auxiliar
+        // Comprobamos si algun jugador no cumple los requisitos para seguir jugando
+        ArrayList<Jugador> jugadoresToRemove = new ArrayList<>();
+        for (Jugador jugador : jugadores) {
+            if (jugador.getSaldo() < configuracion.apuestaMinima) {
+                ioInterface.print(
+                        "El jugador " + jugador.getNombre() + " no tiene dinero suficiente para seguir jugando", true);
+                jugadoresToRemove.add(jugador);
+            }
+        }
+        jugadores.removeAll(jugadoresToRemove);
     }
 
     public void jugarCrupier() {
@@ -211,15 +221,6 @@ public class Mesa {
 
     public void repartirCarta(Jugador jugador) {
         jugador.addCarta(baraja.sacarCartaPila());
-    }
-
-    public void retirarJugador(Jugador jugador) throws UnexistentPlayer {
-        for (Jugador j : jugadores) {
-            if (j.equals(jugador)) {
-                jugadores.remove(j);
-                return;
-            }
-        }
     }
 
     public IO getIoInterface() {
