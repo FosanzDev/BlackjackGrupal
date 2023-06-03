@@ -13,6 +13,8 @@ import com.nolete19.BlackJack.Utils.IO;
 public class Main {
 
     public static void main(String[] args) {
+        /*String archivoConfiguracion = "configuracion.txt";
+        String archivoEstadisticas = "estadisticas.txt";*/
         Configuracion config = new Configuracion();
         Estadisticas estadisticas = new Estadisticas();
         IO ioInterface = new IO(new Scanner(System.in));

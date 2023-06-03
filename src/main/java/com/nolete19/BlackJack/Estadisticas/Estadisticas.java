@@ -56,10 +56,20 @@ public class Estadisticas {
         System.out.println("Partidas jugadas: " + (victoriasCpu + victoriasJugador));
         System.out.println("============================================");
     }
+
+    /**
+     * constuctor
+     */
     public Estadisticas(String archivoEstadisticas) throws IOException {
         cargarEstadisticas(archivoEstadisticas);
     }
 
+    /**
+     * método para leer el archivo de estadísticas y
+     * asignar los valores correspondientes a las variables de la clase
+     * @param archivoEstadisticas
+     * @throws IOException
+     */
     private void cargarEstadisticas(String archivoEstadisticas) throws IOException {
         byte[] bytes = Files.readAllBytes(Paths.get(archivoEstadisticas));
         String contenido = new String(bytes);

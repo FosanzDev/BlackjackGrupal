@@ -15,10 +15,17 @@ public class Configuracion {
     public double multiplicadorBlackjack = 1.5;
     public double multiplicadorGanadorBasico = 1;
 
+    /**constuctor**/
     public Configuracion(String archivoConfiguracion) throws IOException {
         cargarConfiguracion(archivoConfiguracion);
     }
 
+    /**
+     * método  para leer el archivo de configuración y
+     * asignar los valores correspondientes a las variables de la clase.
+     * @param archivoConfiguracion
+     * @throws IOException
+     */
     private void cargarConfiguracion(String archivoConfiguracion) throws IOException {
         byte[] bytes = Files.readAllBytes(Paths.get(archivoConfiguracion));
         String contenido = new String(bytes);
