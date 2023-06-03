@@ -1,5 +1,6 @@
 package com.nolete19.BlackJack.Jugadores;
 import com.nolete19.BlackJack.Cartas.Valores;
+import com.nolete19.BlackJack.Utils.IO;
 import com.nolete19.BlackJack.Mesa;
 import com.nolete19.BlackJack.Cartas.Carta;
 
@@ -10,14 +11,30 @@ public abstract class Jugador {
     protected Mano mano;
     protected int saldo;
     protected int puntuacion;
+    protected int apuesta;
     protected Mesa mesa;
+    protected IO ioInterface;
 
     //Constructor
-    public Jugador(String nombre, int saldo, Mesa mesa) {
+    public Jugador(String nombre, int saldo) {
         this.nombre = nombre;
         this.saldo = saldo;
         mano = new Mano();
+    }
+
+    public Jugador(String nombre) {
+        this.nombre = nombre;
+        this.saldo = 0;
+        mano = new Mano();
+    }
+
+    public void setMesa(Mesa mesa) {
         this.mesa = mesa;
+        this.ioInterface = mesa.getIoInterface();
+    }
+
+    public String getNombre() {
+        return nombre;
     }
 
     /**
@@ -26,6 +43,22 @@ public abstract class Jugador {
      */
     public void addCarta(Carta carta) {
         mano.addCarta(carta);
+    }
+
+    public int getApuesta() {
+        return apuesta;
+    }
+
+    public void setApuesta(int apuesta) {
+        this.apuesta = apuesta;
+    }
+
+    public int getSaldo() {
+        return saldo;
+    }
+
+    public void addDinero(int dinero) {
+        saldo += dinero;
     }
 
 
@@ -73,11 +106,14 @@ public abstract class Jugador {
         return mano;
     }
 
-    /**
-     * Limpia la mano del jugador
-     */
-    public void clear() {
+    public void reset(){
         mano.clear();
+        puntuacion = 0;
+        apuesta = 0;
+    }
+
+    public void setBlackJack(boolean blackJack) {
+        mano.setBlackJack(blackJack);
     }
 
     public abstract Opciones opcion();

@@ -31,9 +31,10 @@ public class Mano implements Iterable<Carta>{
      * además de si tiene 2 cartas en la mano verificiar si son blackJack o no.
      * @return Devuelve la puntuacion calculada.
      */
-    public int calcularPuntuacion(){
+    private void calcularPuntuacion(){
         boolean as = false;
         boolean diez = false;
+        puntuacion = 0;
 
         for (Carta carta : cartas){
             puntuacion = puntuacion + carta.getValor().getIntegerValue();
@@ -48,8 +49,6 @@ public class Mano implements Iterable<Carta>{
                 isBlackJack = true;
             }
         }
-
-        return puntuacion;
     }
 
     /**
@@ -77,11 +76,16 @@ public class Mano implements Iterable<Carta>{
     }
 
     public int getPuntuacion() {
+        calcularPuntuacion();
         return puntuacion;
     }
 
     public boolean isBlackJack() {
         return isBlackJack;
+    }
+
+    public void setBlackJack(boolean blackJack) {
+        isBlackJack = blackJack;
     }
 
     /**

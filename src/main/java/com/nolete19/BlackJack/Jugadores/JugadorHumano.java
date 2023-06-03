@@ -1,15 +1,9 @@
 package com.nolete19.BlackJack.Jugadores;
-import java.util.Scanner;
-import com.nolete19.BlackJack.Utils.IO;
-import com.nolete19.BlackJack.Mesa;
 
 public class JugadorHumano extends Jugador {
-
-    private IO ioInterface;
-
     // Constructor
-    public JugadorHumano(String nombre, int saldo, Mesa mesa) {
-        super(nombre, saldo, mesa);
+    public JugadorHumano(String nombre, int saldo) {
+        super(nombre, saldo);
     }
 
     
@@ -17,6 +11,7 @@ public class JugadorHumano extends Jugador {
     public Opciones opcion() {
         ioInterface.print("-- Tu mano --", true);
         ioInterface.print(mano.toString(), true);
+        ioInterface.print("Puntuación: " + mano.getPuntuacion(), true);
         String option = ioInterface.readString("Desea una nueva carta? (s/n)", true, 
             new String[] {"s", "n", "si", "no"});
         
@@ -36,17 +31,15 @@ public class JugadorHumano extends Jugador {
         while (true){
             try{
                 int apuesta = ioInterface.readLimitedInt("Introduce cantidad a apostar: ", min, max, false);
-                return apuesta;
+                if (apuesta > saldo){
+                    ioInterface.print("No tienes suficiente saldo", true);
+                } else {
+                    this.apuesta = apuesta;
+                    return apuesta;
+                }
             } catch (Exception e){
                 ioInterface.print("Saldo incorrecto", true);
             }
         }
-    }
-
-    public static void main(String[] args) {
-        JugadorHumano jh = new JugadorHumano("Jugador", 100, new Mesa(10, 100));
-        jh.ioInterface = new IO(new Scanner(System.in));
-        System.out.println(jh.opcion());
-        System.out.println(jh.apuesta());
     }
 }

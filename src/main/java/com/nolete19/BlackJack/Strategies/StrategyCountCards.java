@@ -25,7 +25,7 @@ public class StrategyCountCards implements Strategy {
     public Opciones opcionPlayer(Mano player) {
 
         if (!player.isBlackJack()) {
-            if (player.calcularPuntuacion() < 17) {
+            if (player.getPuntuacion() < 17) {
                 return Opciones.PEDIR_CARTA;
             } else {
                 return Opciones.PLANTARSE;
@@ -40,7 +40,7 @@ public class StrategyCountCards implements Strategy {
     public Opciones opcionHouse(Mano house) {
 
         if (!house.isBlackJack()) {
-            if (house.calcularPuntuacion() < 17) {
+            if (house.getPuntuacion() < 17) {
                 return Opciones.PEDIR_CARTA;
 
             }
