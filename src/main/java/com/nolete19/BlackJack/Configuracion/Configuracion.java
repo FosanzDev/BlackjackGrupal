@@ -1,5 +1,9 @@
 package com.nolete19.BlackJack.Configuracion;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 public class Configuracion {
     public int numeroJugadoresIA = 3;
     public int numeroJugadoresHumanos = 1;
@@ -10,6 +14,58 @@ public class Configuracion {
     public int milisegundosEspera = 1000;
     public double multiplicadorBlackjack = 1.5;
     public double multiplicadorGanadorBasico = 1;
+
+    public Configuracion(String archivoConfiguracion) throws IOException {
+        cargarConfiguracion(archivoConfiguracion);
+    }
+
+    private void cargarConfiguracion(String archivoConfiguracion) throws IOException {
+        byte[] bytes = Files.readAllBytes(Paths.get(archivoConfiguracion));
+        String contenido = new String(bytes);
+        String[] lineas = contenido.split("\n");
+
+        for (String linea : lineas) {
+            String[] partes = linea.split("=");
+            String nombre = partes[0].trim();
+            String valor = partes[1].trim();
+
+            switch (nombre) {
+                case "numeroJugadoresIA":
+                    numeroJugadoresIA = Integer.parseInt(valor);
+                    break;
+                case "numeroJugadoresHumanos":
+                    numeroJugadoresHumanos = Integer.parseInt(valor);
+                    break;
+                case "apuestaMinima":
+                    apuestaMinima = Integer.parseInt(valor);
+                    break;
+                case "apuestaMaxima":
+                    apuestaMaxima = Integer.parseInt(valor);
+                    break;
+                case "saldoInicialJugadoresIA":
+                    saldoInicialJugadoresIA = Integer.parseInt(valor);
+                    break;
+                case "saldoInicialJugadoresHumanos":
+                    saldoInicialJugadoresHumanos = Integer.parseInt(valor);
+                    break;
+                case "milisegundosEspera":
+                    milisegundosEspera = Integer.parseInt(valor);
+                    break;
+                case "multiplicadorBlackjack":
+                    multiplicadorBlackjack = Double.parseDouble(valor);
+                    break;
+                case "multiplicadorGanadorBasico":
+                    multiplicadorGanadorBasico = Double.parseDouble(valor);
+                    break;
+                default:
+                    // Opcional: Manejar casos de configuración no reconocida
+                    break;
+            }
+        }
+    }
+
+
+
 
     public void setNumeroJugadoresIA(int numeroJugadoresIA) {
         this.numeroJugadoresIA = numeroJugadoresIA;

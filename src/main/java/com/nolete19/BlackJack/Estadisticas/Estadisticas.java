@@ -1,5 +1,9 @@
 package com.nolete19.BlackJack.Estadisticas;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 public class Estadisticas {
 
     //Definición de las variables
@@ -52,6 +56,32 @@ public class Estadisticas {
         System.out.println("Partidas jugadas: " + (victoriasCpu + victoriasJugador));
         System.out.println("============================================");
     }
+    public Estadisticas(String archivoEstadisticas) throws IOException {
+        cargarEstadisticas(archivoEstadisticas);
+    }
 
+    private void cargarEstadisticas(String archivoEstadisticas) throws IOException {
+        byte[] bytes = Files.readAllBytes(Paths.get(archivoEstadisticas));
+        String contenido = new String(bytes);
+        String[] lineas = contenido.split("\n");
+
+        for (String linea : lineas) {
+            String[] partes = linea.split("=");
+            String nombre = partes[0].trim();
+            String valor = partes[1].trim();
+
+            switch (nombre) {
+                case "victoriasCpu":
+                    victoriasCpu = Integer.parseInt(valor);
+                    break;
+                case "victoriasJugador":
+                    victoriasJugador = Integer.parseInt(valor);
+                    break;
+                default:
+                    // Opcional: Manejar casos de estadísticas no reconocidas
+                    break;
+            }
+        }
+    }
 }
 
