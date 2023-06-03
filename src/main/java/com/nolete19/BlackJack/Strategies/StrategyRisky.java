@@ -36,7 +36,6 @@ public class StrategyRisky implements Strategy {
         }
     }
 
-
     @Override
     public Opciones opcionHouse(Mano house) {
 
@@ -65,5 +64,4 @@ public class StrategyRisky implements Strategy {
 
         return apuestaArr[pos];
     }
-
 }
