@@ -6,7 +6,6 @@ import com.nolete19.BlackJack.Jugadores.Mano;
 import java.util.Random;
 
 public class StrategyConservative implements Strategy {
-
     @Override
     public Opciones opcion(Mano player, Mano house) {
 
