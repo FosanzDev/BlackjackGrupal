@@ -54,7 +54,7 @@ public class StrategyRisky implements Strategy {
 
 
     @Override
-    public int apuesta(int saldo) {
+    public int apuesta(int saldo, Mesa mesa, Jugador jugador) {
         int apuestaGrande = (int) (saldo * 0.50);
         int apuestaMedio = (int) (saldo * 0.40);
         int apuestaPequeno = (int) (saldo * 0.30);
