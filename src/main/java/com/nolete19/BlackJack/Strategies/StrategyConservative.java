@@ -5,8 +5,9 @@ import com.nolete19.BlackJack.Mesa;
 import com.nolete19.BlackJack.Jugadores.Jugador;
 import com.nolete19.BlackJack.Jugadores.Mano;
 
-public class StrategyConservative implements Strategy {
+import java.util.Random;
 
+public class StrategyConservative implements Strategy {
     @Override
     public Opciones opcion(Mano player, Mano house) {
 
@@ -22,6 +23,7 @@ public class StrategyConservative implements Strategy {
 
         return null;
     }
+
 
     @Override
     public Opciones opcionPlayer(Mano player) {
@@ -44,7 +46,6 @@ public class StrategyConservative implements Strategy {
         if (!house.isBlackJack()) {
             if (house.getPuntuacion() < 15) {
                 return Opciones.PEDIR_CARTA;
-
             }
         } else {
             return Opciones.PLANTARSE;
@@ -60,20 +61,17 @@ public class StrategyConservative implements Strategy {
      * @return Apuesta
      */
     @Override
-    public int apuesta(int saldo, Mesa mesa, Jugador jugador) {
-        int minBet = mesa.getApuestaMinima();
-        int maxBet = mesa.getApuestaMaxima();
-        int bet = 0;
+    public int apuesta(int saldo) {
+        int apuestaGrande = (int) (saldo * 0.20);
+        int apuestaMedio = (int) (saldo * 0.15);
+        int apuestaPequeno = (int) (saldo * 0.10);
+        int[] apuestaArr = {apuestaGrande, apuestaMedio, apuestaPequeno};
+        int pos;
+        final int MAX = apuestaArr.length - 1;
+        final int MIN = 0;
+        Random rand = new Random();
+        pos = rand.nextInt((MAX - MIN) + 1) - MIN;
 
-        if (jugador.getMano().getPuntuacion() >= 15 && jugador.getMano().getPuntuacion() <= 20) {
-            bet = (int) (saldo * 0.1);
-        } else if (jugador.getMano().getPuntuacion() < 15) {
-            bet = (int) (saldo * 0.05);
-        }
-
-        bet = Math.min(bet, maxBet);
-        bet = Math.max(bet, minBet);
-
-        return bet;
+        return apuestaArr[pos];
     }
 }
