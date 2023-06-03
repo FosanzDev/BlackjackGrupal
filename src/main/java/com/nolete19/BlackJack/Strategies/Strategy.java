@@ -15,6 +15,7 @@ public interface Strategy {
      */
     public Opciones opcion(Mano player, Mano house) ;
 
+
     /**
      * Gets the hand of the player and decides what to do. Coge la mano del jugador y decide que hacer.
      *
@@ -31,6 +32,11 @@ public interface Strategy {
      */
     public Opciones opcionHouse(Mano house);
 
+    /**
+     * Returns a random number from a % of the saldo. Devuelve un porcentaje del dinero que se ha introducido.
+     * @param saldo Amount of money that the bot has. Total de dinero que tiene.
+     * @return returns an amount of money to bet, devuelve una cantidad de dinero para apostar.
+     */
     public int apuesta(int saldo);
 
 }

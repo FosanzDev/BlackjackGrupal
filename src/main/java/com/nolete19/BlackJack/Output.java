@@ -33,13 +33,6 @@ public class Output {
 
     }
 
-    public static String getCards(Carta card) {
-
-
-
-        return "";
-    }
-
     public static String getCards(Carta[] cards) {
         StringBuilder sb = new StringBuilder();
         int cardAmount = cards.length;
