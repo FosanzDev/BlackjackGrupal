@@ -29,12 +29,30 @@ public class IO {
      * @return The read int
      * @throws NotANumber If the read string is not a number
      */
-    public int readInt(String message, boolean newLine) throws NotANumber {
+    public int readInt(String message, boolean newLine) {
         System.out.print(message + (newLine ? "\n" : ""));
         try {
             return Integer.parseInt(scanner.nextLine());
         } catch (NumberFormatException e) {
-            throw new NotANumber("Not a number");
+            print("Not a number", true);
+            return readInt(message, newLine);
+        }
+    }
+
+    /**
+     * Reads a double from the console
+     * @param message Message to print before reading
+     * @param newLine Whether to print a new line after the message
+     * @return The read double
+     * @throws NotANumber If the read string is not a number
+     */
+    public double readDouble(String message, boolean newLine) {
+        System.out.print(message + (newLine ? "\n" : ""));
+        try {
+            return Double.parseDouble(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            print("Not a number", true);
+            return readDouble(message, newLine);
         }
     }
 
@@ -48,10 +66,30 @@ public class IO {
      * @throws NotANumber If the read string is not a number
      * @throws NotInRange If the read number is not in the range [min, max]
      */
-    public int readLimitedInt(String message, int min, int max, boolean newLine) throws NotANumber, NotInRange {
+    public int readLimitedInt(String message, int min, int max, boolean newLine) {
         int number = readInt(message, newLine);
         if (number < min || number > max) {
-            throw new NotInRange("Number not in range [" + min + ", " + max + "]");
+            print("Not in range [" + min + ", " + max + "]", true);
+            return readLimitedInt(message, min, max, newLine);
+        }
+        return number;
+    }
+
+    /**
+     * Reads a double from the console and checks if it is in the range [min, max]
+     * @param message Message to print before reading
+     * @param min Minimum value
+     * @param max Maximum value
+     * @param newLine Whether to print a new line after the message
+     * @return The read double
+     * @throws NotANumber If the read string is not a number
+     * @throws NotInRange If the read number is not in the range [min, max]
+     */
+    public double readLimitedDouble(String message, double min, double max, boolean newLine) {
+        double number = readDouble(message, newLine);
+        if (number < min || number > max) {
+            print("Not in range [" + min + ", " + max + "]", true);
+            return readLimitedDouble(message, min, max, newLine);
         }
         return number;
     }
@@ -132,4 +170,8 @@ public class IO {
         scanner.close();
     }
 
+    public void waitEnter(){
+        System.out.println("Press enter to continue");
+        scanner.nextLine();
+    }
 }
