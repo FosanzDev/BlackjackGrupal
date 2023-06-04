@@ -1,9 +1,6 @@
 package com.nolete19.BlackJack.Jugadores;
 
-import com.nolete19.BlackJack.Strategies.Strategy;
-import com.nolete19.BlackJack.Strategies.StrategyConservative;
-import com.nolete19.BlackJack.Strategies.StrategyNeutral;
-import com.nolete19.BlackJack.Strategies.StrategyRisky;
+import com.nolete19.BlackJack.Strategies.*;
 
 import java.util.Random;
 
@@ -43,7 +40,7 @@ public class JugadorIA extends Jugador {
      * @return Devuelve un tipo de estrategia que esta almacenado en una posicion concreta de un array.
      */
     private Strategy randStrategy() {
-        Strategy[] strategies = {new StrategyNeutral(), new StrategyConservative(), new StrategyRisky()};
+        Strategy[] strategies = {new StrategyNeutral(), new StrategyConservative(), new StrategyRisky(), new StrategyModerate(), new StrategyComplex()};
         final int MIN = 0;
         final int MAX = strategies.length - 1;
         Random rand = new Random();
