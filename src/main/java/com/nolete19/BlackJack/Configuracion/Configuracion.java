@@ -1,7 +1,9 @@
 package com.nolete19.BlackJack.Configuracion;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
+import java.io.FileReader;
 import java.io.IOException;
 import com.google.gson.Gson;
 
