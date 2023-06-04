@@ -193,7 +193,18 @@ public class Mesa {
                     jugador.addDinero(-jugador.getApuesta());
                 }
 
-                // CASO 2.2: El crupier tiene menos puntos que el jugador (Se le suma: apuesta *
+                // CASO 2.2 El crupier se ha pasado de 21 (Se le suma: apuesta * multiplicadorGanadorBasico)
+                else if (puntosCrupier > 21) {
+                    ioInterface.print("El crupier se ha pasado de 21!", true);
+                    ioInterface.print("Has ganado " + jugador.getApuesta() * configuracion.multiplicadorGanadorBasico
+                            + "E", true);
+                    jugador.addDinero((int) (jugador.getApuesta() * configuracion.multiplicadorGanadorBasico));
+                    if (jugador instanceof JugadorHumano) {
+                        estadisticas.incrementVictoriasJugador();
+                    }
+                }
+
+                // CASO 2.3: El crupier tiene menos puntos que el jugador (Se le suma: apuesta *
                 // multiplicadorGanadorBasico)
                 else if (puntosCrupier < puntosJugador) {
                     ioInterface.print("El jugador tenía más puntos que el crupier!", true);
@@ -202,7 +213,7 @@ public class Mesa {
                     jugador.addDinero(dineroGanado);
                 }
 
-                // CASO 2.3: El crupier tiene más puntos o los muismos que el jugador (Se le
+                // CASO 2.4: El crupier tiene más puntos o los mismos que el jugador (Se le
                 // resta: apuesta)
                 else if (puntosCrupier >= puntosJugador && puntosCrupier <= 21) {
                     ioInterface.print("El jugador tenía menos puntos que el crupier!", true);

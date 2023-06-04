@@ -38,6 +38,11 @@ public class Mano implements Iterable<Carta>{
      * @return Devuelve la puntuacion calculada.
      */
     private void calcularPuntuacion(){
+        if (cartas.size() == 0){
+            puntuacion = 0;
+            return;
+        }
+        
         boolean as = false;
         boolean diez = false;
         puntuacion = 0;
@@ -111,27 +116,5 @@ public class Mano implements Iterable<Carta>{
     @Override
     public Iterator<Carta> iterator() {
         return cartas.iterator();
-    }
-
-
-    /**
-     * Este método se encarga de sacar la primera carta de la mano.
-     * @return La primera carta de la mano, o null si no hay cartas en la mano.
-     */
-    public Carta sacarPrimeraCarta() {
-        if (!cartas.isEmpty()) {
-            return cartas.remove(0);
-        }
-        return null;
-    }
-    /**
-     * Getter para obtener la primera carta de la mano.
-     * @return La primera carta de la mano, o null si no hay cartas en la mano.
-     */
-    public Carta getPrimeraCarta() {
-        if (!cartas.isEmpty()) {
-            return cartas.get(0);
-        }
-        return null;
     }
 }
