@@ -1,7 +1,6 @@
 package com.nolete19.BlackJack.Configuracion;
 
-import java.io.File;
-import java.io.FileReader;
+import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import com.google.gson.Gson;
@@ -190,5 +189,35 @@ public class Configuracion {
         settings[12] = "Salir";
         return settings;
     }
+    /**
+     * M�todo para guardar la configuraci�n en un archivo.
+     *
+     * @param archivoConfiguracion El nombre del archivo de configuraci�n.
+     * @throws IOException Si ocurre un error al escribir el archivo.
+     */
+    public void guardarConfiguracion(String archivoConfiguracion) throws IOException {
+        StringBuilder contenido = new StringBuilder();
+
+        contenido.append("numeroJugadoresIA=").append(numeroJugadoresIA).append("\n");
+        contenido.append("numeroJugadoresHumanos=").append(numeroJugadoresHumanos).append("\n");
+        contenido.append("apuestaMinima=").append(apuestaMinima).append("\n");
+        contenido.append("apuestaMaxima=").append(apuestaMaxima).append("\n");
+        contenido.append("saldoInicialJugadoresIA=").append(saldoInicialJugadoresIA).append("\n");
+        contenido.append("saldoInicialJugadoresHumanos=").append(saldoInicialJugadoresHumanos).append("\n");
+        contenido.append("milisegundosEspera=").append(milisegundosEspera).append("\n");
+        contenido.append("multiplicadorBlackjack=").append(multiplicadorBlackjack).append("\n");
+        contenido.append("multiplicadorGanadorBasico=").append(multiplicadorGanadorBasico).append("\n");
+
+        BufferedWriter writer = null;
+        try {
+            writer = new BufferedWriter(new FileWriter(archivoConfiguracion));
+            writer.write(contenido.toString());
+        } finally {
+            if (writer != null) {
+                writer.close();
+            }
+        }
+    }
+
 }
 
