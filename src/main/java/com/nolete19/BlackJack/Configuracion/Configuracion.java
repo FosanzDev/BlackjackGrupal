@@ -17,12 +17,16 @@ public class Configuracion {
     public double multiplicadorGanadorBasico = 1;
 
     /**constuctor**/
-    public Configuracion(String archivoConfiguracion) throws IOException {
-        cargarConfiguracion(archivoConfiguracion);
+    public Configuracion(String archivoConfiguracion) {
+        try{
+            cargarConfiguracion(archivoConfiguracion);
+        } catch (IOException e){
+            // No se puede cargar el archivo de configuraciÃ³n
+        }
     }
 
     /**
-     * método  para leer el archivo de configuración y
+     * mï¿½todo  para leer el archivo de configuraciï¿½n y
      * asignar los valores correspondientes a las variables de la clase.
      * @param archivoConfiguracion
      * @throws IOException
@@ -66,7 +70,7 @@ public class Configuracion {
                     multiplicadorGanadorBasico = Double.parseDouble(valor);
                     break;
                 default:
-                    // Opcional: Manejar casos de configuración no reconocida
+                    // Opcional: Manejar casos de configuraciï¿½n no reconocida
                     break;
             }
         }

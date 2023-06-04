@@ -15,8 +15,8 @@ public class Main {
     public static void main(String[] args) {
         /*String archivoConfiguracion = "configuracion.txt";
         String archivoEstadisticas = "estadisticas.txt";*/
-        Configuracion config = new Configuracion();
-        Estadisticas estadisticas = new Estadisticas();
+        Configuracion config = new Configuracion("configuracion.txt");
+        Estadisticas estadisticas = new Estadisticas("estadisticas.txt");
         IO ioInterface = new IO(new Scanner(System.in));
 
         boolean continues = true;

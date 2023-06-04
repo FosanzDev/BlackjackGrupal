@@ -6,20 +6,20 @@ import java.nio.file.Paths;
 
 public class Estadisticas {
 
-    //Definición de las variables
+    //Definiciï¿½n de las variables
     private int victoriasCpu;
     private int victoriasJugador;
     private int blackjacksJugador;
 
     /**
-     * Este método se encarga de incrementar las victorias, es decir
+     * Este mï¿½todo se encarga de incrementar las victorias, es decir
      * las manos que ha ganado la cpu.
      */
     public void incrementarVictoriasCpu() {
         victoriasCpu++;
     }
     /**
-     * Este método se encarga de incrementar las victorias, es decir
+     * Este mï¿½todo se encarga de incrementar las victorias, es decir
      * las manos que ha ganado el jugador.
      */
     public void incrementVictoriasJugador() {
@@ -27,7 +27,7 @@ public class Estadisticas {
     }
 
     /**
-     * Este método se encarga de incrementar las manos que ha ganado el jugador con blackJack,
+     * Este mï¿½todo se encarga de incrementar las manos que ha ganado el jugador con blackJack,
      * es decir con dos cartas obtener 21.
      */
     public void incrementarBlackjacksJugador() {
@@ -46,7 +46,7 @@ public class Estadisticas {
         return blackjacksJugador;
     }
     /**
-     * Método que muestra todas las estadisticas de los dos
+     * Mï¿½todo que muestra todas las estadisticas de los dos
      * jugadores al completo, para poder visualizar la diferencia.
      */
 
@@ -64,12 +64,17 @@ public class Estadisticas {
     /**
      * constuctor
      */
-    public Estadisticas(String archivoEstadisticas) throws IOException {
-        cargarEstadisticas(archivoEstadisticas);
+    public Estadisticas(String archivoEstadisticas) {
+        try{
+            cargarEstadisticas(archivoEstadisticas);
+        } catch (IOException e) {
+            // No se ha podido cargar el archivo de estadÃ­sticas
+            // Se inicializan a 0
+        }
     }
 
     /**
-     * método para leer el archivo de estadísticas y
+     * mï¿½todo para leer el archivo de estadï¿½sticas y
      * asignar los valores correspondientes a las variables de la clase
      * @param archivoEstadisticas
      * @throws IOException
@@ -92,7 +97,7 @@ public class Estadisticas {
                     victoriasJugador = Integer.parseInt(valor);
                     break;
                 default:
-                    // Opcional: Manejar casos de estadísticas no reconocidas
+                    // Opcional: Manejar casos de estadï¿½sticas no reconocidas
                     break;
             }
         }
