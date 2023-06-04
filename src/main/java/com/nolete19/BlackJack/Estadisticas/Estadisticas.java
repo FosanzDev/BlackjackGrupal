@@ -146,5 +146,13 @@ public class Estadisticas {
             return;
         }
     }
+
+    public void resetStats(){
+        this.victoriasCpu = 0;
+        this.victoriasJugador = 0;
+        this.blackjacksJugador = 0;
+        this.partidasJugadas = 0;
+        guardarEstadisticas();
+    }
 }
 
