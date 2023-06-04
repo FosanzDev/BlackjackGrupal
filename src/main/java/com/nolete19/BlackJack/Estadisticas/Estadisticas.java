@@ -6,7 +6,6 @@ import java.io.IOException;
 import com.google.gson.Gson;
 
 import java.io.FileReader;
-import java.io.FileWriter;
 
 public class Estadisticas {
 
@@ -157,9 +156,9 @@ public class Estadisticas {
         guardarEstadisticas();
     }
     /**
-     * Método para guardar las estadísticas en un archivo.
+     * Mï¿½todo para guardar las estadï¿½sticas en un archivo.
      *
-     * @param archivoEstadisticas El nombre del archivo de estadísticas.
+     * @param archivoEstadisticas El nombre del archivo de estadï¿½sticas.
      * @throws IOException Si ocurre un error al escribir el archivo.
      */
     public void guardarEstadisticas(String archivoEstadisticas) throws IOException {
