@@ -6,6 +6,7 @@ import com.nolete19.BlackJack.Cartas.Valores;
 
 public class Output {
 
+    //Atributos
     static final String TOP_LEFT = "┌";
     static final String TOP_RIGHT = "┑";
     static final String BOTTOM_LEFT = "└";
@@ -18,14 +19,22 @@ public class Output {
     static final String DIAMOND = "♦";
     static final String CLUB = "♣";
 
-
+    /**
+     * Este método se encarga de mostrar en menu principal del programa,
+     * con varias opciones segun la tarea que queramos realizar
+     * @return Devuelve un método que se encarga de devolver un String
+     */
     public static String getMainMenu() {
 
         String[] mainMenuItems = {"Nueva partida", "Mostrar estadisticas", "Configuracion", "Salir"};
         return Menu.menu("Blackjack", mainMenuItems);
 
     }
-
+    /**
+     * Este método se encarga de mostrar en menu de configuracion del programa,
+     * con varias opciones segun los parametros que deseamos actualizar
+     * @return Devuelve un método que se encarga de devolver un String
+     */
     public static String getConfigMenu() {
 
         String[] configMenuItems = {"Cambiar numero de jugadores", "Cambiar la apuesta base", "Cambiar el saldo inicial de los jugadores"};
@@ -33,6 +42,12 @@ public class Output {
 
     }
 
+    /**
+     * Este método es utilizado para mostrar las cartas por consola
+     * incluyendo el numero y los palos que deseemos.
+     * @param cards Recibe como parametro una variable de tipo Carta
+     * @return Devuelve un string mostrando la carta previamente representada
+     */
     public static String getCards(Carta[] cards) {
         StringBuilder sb = new StringBuilder();
         int cardAmount = cards.length;
@@ -78,16 +93,14 @@ public class Output {
                     break;
             }
         }
-
-
-
-
-
-
-
         return sb.toString();
     }
 
+    /**
+     * Este método se encarga de generar los bordes superiores necesarios para representar la información
+     * con un diseño mas atractivo.
+     * @return Devuelve un string con el borde superior montado.
+     */
     private static String topBorder() {
         StringBuilder sb = new StringBuilder();
         sb.append(TOP_LEFT);
@@ -96,7 +109,11 @@ public class Output {
         sb.append(TOP_RIGHT);
         return sb.toString();
     }
-
+    /**
+     * Este método se encarga de generar los bordes inferiores necesarios para representar la información
+     * con un diseño mas atractivo.
+     * @return Devuelve un string con el borde inferior montado.
+     */
     private static String bottomBorder() {
         StringBuilder sb = new StringBuilder();
         sb.append(BOTTOM_LEFT);
@@ -106,6 +123,13 @@ public class Output {
         return sb.toString();
     }
 
+    /**
+     * Este método se encarga de recibir una carta y una posicion para establecer donde
+     * debe ser pintado el valor medio de la carta.
+     * @param card Recibe un parametro de tipo de dato Carta.
+     * @param position Recibe un numero entero que representa la posicion para ser pintado.
+     * @return Devuelve un String con el valor medio de la carta.
+     */
     private static String middleValue(Carta card, int position) {
         StringBuilder sb = new StringBuilder();
 
@@ -138,6 +162,13 @@ public class Output {
         }
     }
 
+    /**
+     * Este método se encarga de recibir una carta y una posicion para establecer donde
+     * debe ser pintado el icono/dibujo de la carta.
+     * @param card Recibe un parametro de tipo de dato Carta.
+     * @param position Recibe un numero entero que representa la posicion para ser pintado.
+     * @return Devuelve un String con el icono medio de la carta.
+     */
     private static String middleSuit(Carta card, int position) {
         StringBuilder sb = new StringBuilder();
 
@@ -157,6 +188,12 @@ public class Output {
         return sb.toString();
     }
 
+    /**
+     * Este método se encarga de convertir  el valor de una carta en un String
+     * para que sea representado por consola.
+     * @param card Recibe como parametro un objeto de tipo Carta.
+     * @return En caso de fallo devuelve dos X.
+     */
     private static String cardValueToString(Carta card) {
         switch (card.getValor().getIntegerValue()) {
             case 1 :
@@ -181,6 +218,12 @@ public class Output {
         }
     }
 
+    /**
+     * Este método se encarga de obtener el palo de la carta y asignarle un simbolo según
+     * el tipo al que corresponda.
+     * @param card Recibe como parametro una variable de tipo Carta.
+     * @return En caso de no encontrar coincidencias devuelve un String en forma de x.
+     */
     private static String cardSuitToString(Carta card) {
         switch (card.getPalo()) {
             case TREBOL:

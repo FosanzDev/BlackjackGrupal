@@ -6,6 +6,7 @@ import com.nolete19.BlackJack.Cartas.Carta;
 import com.nolete19.BlackJack.Cartas.Valores;
 
 public class Mano implements Iterable<Carta>{
+    //Atributos
     private ArrayList<Carta> cartas;
     private int puntuacion = 0;
     private boolean isBlackJack;
@@ -15,6 +16,11 @@ public class Mano implements Iterable<Carta>{
         cartas = new ArrayList<>();
     }
 
+    /**
+     * Este método se encarga de obtener solo una carta, para representar
+     * mejor el punto de vista del jugador que solo ve una carta del crupier
+     * @return Devuelve la mano con una unica carta.
+     */
     public Mano getUniqueCard(){
         Mano mano = new Mano();
         try{
@@ -105,5 +111,27 @@ public class Mano implements Iterable<Carta>{
     @Override
     public Iterator<Carta> iterator() {
         return cartas.iterator();
+    }
+
+
+    /**
+     * Este método se encarga de sacar la primera carta de la mano.
+     * @return La primera carta de la mano, o null si no hay cartas en la mano.
+     */
+    public Carta sacarPrimeraCarta() {
+        if (!cartas.isEmpty()) {
+            return cartas.remove(0);
+        }
+        return null;
+    }
+    /**
+     * Getter para obtener la primera carta de la mano.
+     * @return La primera carta de la mano, o null si no hay cartas en la mano.
+     */
+    public Carta getPrimeraCarta() {
+        if (!cartas.isEmpty()) {
+            return cartas.get(0);
+        }
+        return null;
     }
 }

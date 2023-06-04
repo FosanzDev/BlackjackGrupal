@@ -1,13 +1,17 @@
 package com.nolete19.BlackJack;
 
 public class Juego implements Runnable {
-
+    // Atributos
     private Mesa mesa;
-
+    //Constructor
     public Juego(Mesa mesa) {
         this.mesa = mesa;
     }
 
+    /**
+     * Este método representa el flujo del juego, llamando a los métodos correspondientes
+     * para que se cumpla con el orden indicado.
+     */
     @Override
     public void run() {
         try {
