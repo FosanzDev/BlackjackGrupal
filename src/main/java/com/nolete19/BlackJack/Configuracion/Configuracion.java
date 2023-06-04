@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class Configuracion {
+    //Atributos
     public int numeroJugadoresIA = 3;
     public int numeroJugadoresHumanos = 1;
     public int apuestaMinima = 10;
@@ -73,7 +74,7 @@ public class Configuracion {
 
 
 
-
+    //Setters
     public void setNumeroJugadoresIA(int numeroJugadoresIA) {
         this.numeroJugadoresIA = numeroJugadoresIA;
     }

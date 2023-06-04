@@ -6,6 +6,7 @@ import com.nolete19.BlackJack.Cartas.Carta;
 import com.nolete19.BlackJack.Cartas.Valores;
 
 public class Mano implements Iterable<Carta>{
+    //Atributos
     private ArrayList<Carta> cartas;
     private int puntuacion = 0;
     private boolean isBlackJack;
@@ -15,6 +16,11 @@ public class Mano implements Iterable<Carta>{
         cartas = new ArrayList<>();
     }
 
+    /**
+     * Este método se encarga de obtener solo una carta, para representar
+     * mejor el punto de vista del jugador que solo ve una carta del crupier
+     * @return Devuelve la mano con una unica carta.
+     */
     public Mano getUniqueCard(){
         Mano mano = new Mano();
         try{

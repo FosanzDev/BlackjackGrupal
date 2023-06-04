@@ -26,6 +26,10 @@ public class Estadisticas {
         victoriasJugador++;
     }
 
+    /**
+     * Este método se encarga de incrementar las manos que ha ganado el jugador con blackJack,
+     * es decir con dos cartas obtener 21.
+     */
     public void incrementarBlackjacksJugador() {
         blackjacksJugador++;
     }

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 public class Mesa {
 
+    //Atributos
     private final Baraja baraja;
     private final ArrayList<Jugador> jugadores;
 
@@ -23,6 +24,7 @@ public class Mesa {
     private Configuracion configuracion;
     private Estadisticas estadisticas;
 
+    //Constructor
     public Mesa(IO ioInterface, Configuracion configuracion, Estadisticas estadisticas) {
         this.baraja = new Baraja();
         this.apuestaMinima = configuracion.apuestaMinima;
@@ -34,6 +36,7 @@ public class Mesa {
         this.crupier = new JugadorIA("Crupier", true);
     }
 
+    //Getters
     public int getApuestaMinima() {
         return apuestaMinima;
     }
@@ -46,11 +49,20 @@ public class Mesa {
         return crupier.getVisibleHand();
     }
 
+    /**
+     * Este método se encarga de agregar un jugador a la mesa que posteriormente es
+     * guardado en un array que representa todos los jugadores de la mesa.
+     * @param jugador Recibe un parametro de tipo Jugador.
+     */
     public void addJugador(Jugador jugador) {
         jugadores.add(jugador);
         jugador.setMesa(this);
     }
 
+    /**
+     * Este método se encarga de repartir las dos cartas necesarias que necesita cada
+     * jugador para empezar la ronda.
+     */
     public void repartirCartas() {
         for (int i = 0; i < 2; i++) {
             for (Jugador jugador : jugadores) {
@@ -59,6 +71,10 @@ public class Mesa {
         }
     }
 
+    /**
+     * Este método se encarga de verificar si hay jugadores humanos en la partida
+     * @return Devuelve un booleano representando si hay o no hay jugadores humanos.
+     */
     public boolean areThereHumansLeft() {
         for (Jugador jugador : jugadores) {
             if (jugador instanceof JugadorHumano) {
@@ -68,6 +84,10 @@ public class Mesa {
         return false;
     }
 
+    /**
+     * Este método se encarga de llamar a las apuestas que desee hacer cada jugador segun
+     * convenga, ya sea jugador humano o controlado por la IA.
+     */
     public void apuestas() {
         for (Jugador jugador : jugadores) {
             jugador.apuesta();
@@ -208,6 +228,10 @@ public class Mesa {
         jugadores.removeAll(jugadoresToRemove);
     }
 
+    /**
+     * Este método se encarga de repartir cartas al crupier en caso que la puntuacion
+     * sea menor de 17.
+     */
     public void jugarCrupier() {
         boolean inBounds = true;
         while (inBounds) {
@@ -219,14 +243,18 @@ public class Mesa {
         }
     }
 
+    /**
+     * Este método se encarga de repartir una carta al jugador que desee.
+     * @param jugador Recibe como parametor un Jugador para asignar dicha carta a su mano.
+     */
     public void repartirCarta(Jugador jugador) {
         jugador.addCarta(baraja.sacarCartaPila());
     }
-
+    // Este método se utiliza para obtener la interfaz de entrada y salida
     public IO getIoInterface() {
         return ioInterface;
     }
-
+    //Getters
     public ArrayList<Jugador> getJugadores() {
         return jugadores;
     }

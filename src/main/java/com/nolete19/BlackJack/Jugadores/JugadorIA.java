@@ -8,9 +8,10 @@ import com.nolete19.BlackJack.Strategies.StrategyRisky;
 import java.util.Random;
 
 public class JugadorIA extends Jugador {
-    
-    private Strategy strategy;
 
+    //Atributos
+    private Strategy strategy;
+    //Constructors
     public JugadorIA(String nombre, int dinero) {
         super(nombre, dinero);
         this.strategy = randStrategy();
@@ -20,7 +21,7 @@ public class JugadorIA extends Jugador {
         super(nombre);
         this.strategy = new StrategyNeutral();
     }
-
+    //Getters
     public Mano getVisibleHand() {
         return mano.getUniqueCard();
     }
@@ -36,6 +37,11 @@ public class JugadorIA extends Jugador {
         return apuesta;
     }
 
+    /**
+     * Este método se encarga de generar una estrategia aleatoria que sera utilizada
+     * por el jugador controlado por la cpu.
+     * @return Devuelve un tipo de estrategia que esta almacenado en una posicion concreta de un array.
+     */
     private Strategy randStrategy() {
         Strategy[] strategies = {new StrategyNeutral(), new StrategyConservative(), new StrategyRisky()};
         final int MIN = 0;

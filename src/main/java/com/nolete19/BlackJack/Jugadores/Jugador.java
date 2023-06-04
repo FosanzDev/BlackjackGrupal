@@ -6,7 +6,7 @@ import com.nolete19.BlackJack.Cartas.Carta;
 
 
 public abstract class Jugador {
-
+    //Atributos
     protected String nombre;
     protected Mano mano;
     protected int saldo;
@@ -28,6 +28,7 @@ public abstract class Jugador {
         mano = new Mano();
     }
 
+    //Setters
     public void setMesa(Mesa mesa) {
         this.mesa = mesa;
         this.ioInterface = mesa.getIoInterface();
@@ -111,7 +112,7 @@ public abstract class Jugador {
         puntuacion = 0;
         apuesta = 0;
     }
-
+    //Setters
     public void setBlackJack(boolean blackJack) {
         mano.setBlackJack(blackJack);
     }

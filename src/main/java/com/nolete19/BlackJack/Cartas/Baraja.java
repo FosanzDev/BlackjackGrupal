@@ -2,6 +2,7 @@ package com.nolete19.BlackJack.Cartas;
 import java.util.Random;
 
 public class Baraja {
+    //Atributo
     private static final int CANT_CARTAS = 52;
     private Carta[] cartas;
 
