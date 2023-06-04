@@ -23,6 +23,7 @@ public class Estadisticas {
      */
     public void incrementarVictoriasCpu() {
         victoriasCpu++;
+        guardarEstadisticas();
     }
     /**
      * Este m�todo se encarga de incrementar las victorias, es decir
@@ -30,13 +31,15 @@ public class Estadisticas {
      */
     public void incrementVictoriasJugador() {
         victoriasJugador++;
+        guardarEstadisticas();
     }
 
     /**
      * Este m�todo se encarga de incrementar las partidas que se han jugado.
      */
     public void incrementarPartidasJugadas() {
-        partidasJugadas++;  
+        partidasJugadas++;
+        guardarEstadisticas();
     }
 
     /**

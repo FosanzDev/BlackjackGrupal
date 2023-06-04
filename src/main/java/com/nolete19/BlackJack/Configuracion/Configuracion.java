@@ -1,10 +1,15 @@
 package com.nolete19.BlackJack.Configuracion;
 
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import com.google.gson.Gson;
+
 
 public class Configuracion {
+
+    public static String DEFAULT_FILE_PATH = "configuracion.json";
+
     //Atributos
     public int numeroJugadoresIA = 3;
     public int numeroJugadoresHumanos = 1;
@@ -15,13 +20,27 @@ public class Configuracion {
     public int milisegundosEspera = 1000;
     public double multiplicadorBlackjack = 1.5;
     public double multiplicadorGanadorBasico = 1;
+    private transient String filePath = DEFAULT_FILE_PATH;
 
-    /**constuctor**/
+    /**
+     * constuctor
+     */
     public Configuracion(String archivoConfiguracion) {
-        try{
-            cargarConfiguracion(archivoConfiguracion);
-        } catch (IOException e){
-            // No se puede cargar el archivo de configuración
+        this.filePath = archivoConfiguracion;
+        cargarConfiguracion();
+    }
+
+    /**Constructor preferido para las configuraciones
+     * @param useDefault si es true se usan las configuraciones por defecto, 
+     * si es false se cargan las configuraciones del archivo
+     * 
+     */
+    public Configuracion(boolean useDefault){
+        if(!useDefault){
+            cargarConfiguracion();
+            guardarConfiguracion();
+        } else {
+            guardarConfiguracion();
         }
     }
 
@@ -31,48 +50,42 @@ public class Configuracion {
      * @param archivoConfiguracion
      * @throws IOException
      */
-    private void cargarConfiguracion(String archivoConfiguracion) throws IOException {
-        byte[] bytes = Files.readAllBytes(Paths.get(archivoConfiguracion));
-        String contenido = new String(bytes);
-        String[] lineas = contenido.split("\n");
+    private void cargarConfiguracion(){
+        // Read the serialized object from a file
+        Gson gson = new Gson();
+        Configuracion configuracion;
+        try {
+            configuracion = gson.fromJson(new FileReader(filePath), Configuracion.class);
+        } catch (IOException e) {
+            // Imposible cargar el archivo. Se crea uno nuevo con la configuracion incial
+            // guardarConfiguracion se encarga de crear el archivo
+            guardarConfiguracion();
+            return;
+        }
 
-        for (String linea : lineas) {
-            String[] partes = linea.split("=");
-            String nombre = partes[0].trim();
-            String valor = partes[1].trim();
+        this.numeroJugadoresIA = configuracion.numeroJugadoresIA;
+        this.numeroJugadoresHumanos = configuracion.numeroJugadoresHumanos;
+        this.apuestaMinima = configuracion.apuestaMinima;
+        this.apuestaMaxima = configuracion.apuestaMaxima;
+        this.saldoInicialJugadoresIA = configuracion.saldoInicialJugadoresIA;
+        this.saldoInicialJugadoresHumanos = configuracion.saldoInicialJugadoresHumanos;
+        this.milisegundosEspera = configuracion.milisegundosEspera;
+        this.multiplicadorBlackjack = configuracion.multiplicadorBlackjack;
+        this.multiplicadorGanadorBasico = configuracion.multiplicadorGanadorBasico;
+    }
 
-            switch (nombre) {
-                case "numeroJugadoresIA":
-                    numeroJugadoresIA = Integer.parseInt(valor);
-                    break;
-                case "numeroJugadoresHumanos":
-                    numeroJugadoresHumanos = Integer.parseInt(valor);
-                    break;
-                case "apuestaMinima":
-                    apuestaMinima = Integer.parseInt(valor);
-                    break;
-                case "apuestaMaxima":
-                    apuestaMaxima = Integer.parseInt(valor);
-                    break;
-                case "saldoInicialJugadoresIA":
-                    saldoInicialJugadoresIA = Integer.parseInt(valor);
-                    break;
-                case "saldoInicialJugadoresHumanos":
-                    saldoInicialJugadoresHumanos = Integer.parseInt(valor);
-                    break;
-                case "milisegundosEspera":
-                    milisegundosEspera = Integer.parseInt(valor);
-                    break;
-                case "multiplicadorBlackjack":
-                    multiplicadorBlackjack = Double.parseDouble(valor);
-                    break;
-                case "multiplicadorGanadorBasico":
-                    multiplicadorGanadorBasico = Double.parseDouble(valor);
-                    break;
-                default:
-                    // Opcional: Manejar casos de configuraci�n no reconocida
-                    break;
-            }
+    public void guardarConfiguracion() {
+        // Serializar el objeto
+        Gson gson = new Gson();
+        try (FileWriter writer = new FileWriter(filePath)){
+            gson.toJson(this, writer);
+        } catch (IOException e) {
+            //No se ha podido guardar el archivo de configuración
+            //Se crea un archivo nuevo con las configuraciones iniciales en el path por defecto
+            filePath = DEFAULT_FILE_PATH;
+            guardarConfiguracion();
+            //Este return es para evitar recursividad infinita
+            return;
         }
     }
 
@@ -81,38 +94,47 @@ public class Configuracion {
     //Setters
     public void setNumeroJugadoresIA(int numeroJugadoresIA) {
         this.numeroJugadoresIA = numeroJugadoresIA;
+        guardarConfiguracion();
     }
 
     public void setNumeroJugadoresHumanos(int numeroJugadoresHumanos) {
         this.numeroJugadoresHumanos = numeroJugadoresHumanos;
+        guardarConfiguracion();
     }
 
     public void setApuestaMinima(int apuestaMinima) {
         this.apuestaMinima = apuestaMinima;
+        guardarConfiguracion();
     }
 
     public void setApuestaMaxima(int apuestaMaxima) {
         this.apuestaMaxima = apuestaMaxima;
+        guardarConfiguracion();
     }
 
     public void setSaldoInicialJugadoresIA(int saldoInicialJugadoresIA) {
         this.saldoInicialJugadoresIA = saldoInicialJugadoresIA;
+        guardarConfiguracion();
     }
 
     public void setSaldoInicialJugadoresHumanos(int saldoInicialJugadoresHumanos) {
         this.saldoInicialJugadoresHumanos = saldoInicialJugadoresHumanos;
+        guardarConfiguracion();
     }
 
     public void setMilisegundosEspera(int milisegundosEspera) {
         this.milisegundosEspera = milisegundosEspera;
+        guardarConfiguracion();
     }
 
     public void setMultiplicadorBlackjack(double multiplicadorBlackjack) {
         this.multiplicadorBlackjack = multiplicadorBlackjack;
+        guardarConfiguracion();
     }
 
     public void setMultiplicadorGanadorBasico(double multiplicadorGanadorBasico) {
         this.multiplicadorGanadorBasico = multiplicadorGanadorBasico;
+        guardarConfiguracion();
     }
 }
 
