@@ -1,5 +1,7 @@
 package com.nolete19.BlackJack.Estadisticas;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -94,6 +96,29 @@ public class Estadisticas {
                 default:
                     // Opcional: Manejar casos de estadísticas no reconocidas
                     break;
+            }
+        }
+    }
+    /**
+     * Método para guardar las estadísticas en un archivo.
+     *
+     * @param archivoEstadisticas El nombre del archivo de estadísticas.
+     * @throws IOException Si ocurre un error al escribir el archivo.
+     */
+    public void guardarEstadisticas(String archivoEstadisticas) throws IOException {
+        StringBuilder contenido = new StringBuilder();
+
+        contenido.append("victoriasCpu=").append(victoriasCpu).append("\n");
+        contenido.append("victoriasJugador=").append(victoriasJugador).append("\n");
+        contenido.append("blackjacksJugador=").append(blackjacksJugador).append("\n");
+
+        BufferedWriter writer = null;
+        try {
+            writer = new BufferedWriter(new FileWriter(archivoEstadisticas));
+            writer.write(contenido.toString());
+        } finally {
+            if (writer != null) {
+                writer.close();
             }
         }
     }
