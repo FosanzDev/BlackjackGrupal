@@ -112,4 +112,26 @@ public class Mano implements Iterable<Carta>{
     public Iterator<Carta> iterator() {
         return cartas.iterator();
     }
+
+
+    /**
+     * Este método se encarga de sacar la primera carta de la mano.
+     * @return La primera carta de la mano, o null si no hay cartas en la mano.
+     */
+    public Carta sacarPrimeraCarta() {
+        if (!cartas.isEmpty()) {
+            return cartas.remove(0);
+        }
+        return null;
+    }
+    /**
+     * Getter para obtener la primera carta de la mano.
+     * @return La primera carta de la mano, o null si no hay cartas en la mano.
+     */
+    public Carta getPrimeraCarta() {
+        if (!cartas.isEmpty()) {
+            return cartas.get(0);
+        }
+        return null;
+    }
 }
