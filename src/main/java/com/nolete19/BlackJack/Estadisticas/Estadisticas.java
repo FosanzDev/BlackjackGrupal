@@ -1,15 +1,21 @@
 package com.nolete19.BlackJack.Estadisticas;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import com.google.gson.Gson;
+
+import java.io.FileReader;
+import java.io.FileWriter;
 
 public class Estadisticas {
 
+    private static String DEFAULT_FILE_PATH = "estadisticas.json";
+
     //Definici�n de las variables
-    private int victoriasCpu;
-    private int victoriasJugador;
-    private int blackjacksJugador;
+    private int victoriasCpu = 0;
+    private int victoriasJugador = 0;
+    private int blackjacksJugador = 0;
+    private int partidasJugadas = 0;
+    private transient String filePath = DEFAULT_FILE_PATH;
 
     /**
      * Este m�todo se encarga de incrementar las victorias, es decir
@@ -27,11 +33,19 @@ public class Estadisticas {
     }
 
     /**
+     * Este m�todo se encarga de incrementar las partidas que se han jugado.
+     */
+    public void incrementarPartidasJugadas() {
+        partidasJugadas++;  
+    }
+
+    /**
      * Este m�todo se encarga de incrementar las manos que ha ganado el jugador con blackJack,
      * es decir con dos cartas obtener 21.
      */
     public void incrementarBlackjacksJugador() {
         blackjacksJugador++;
+        guardarEstadisticas();
     }
     //Getters
     public int getVictoriasCpu() {
@@ -45,31 +59,46 @@ public class Estadisticas {
     public int getBlackjacksJugador() {
         return blackjacksJugador;
     }
+
+    public int getPartidasJugadas() {
+        return partidasJugadas;
+    }
+
     /**
      * M�todo que muestra todas las estadisticas de los dos
      * jugadores al completo, para poder visualizar la diferencia.
      */
-
-    public void mostrarEstadisticas() {
-        System.out.println("============================================");
-        System.out.println("                ESTADISTICAS                ");
-        System.out.println("============================================");
-        System.out.println("Manos ganadas por la CPU: " + victoriasCpu);
-        System.out.println("Manos ganadas por el Jugador: " + victoriasJugador);
-        System.out.println("Blackjacks obtenidos por el Jugador: " + blackjacksJugador);
-        System.out.println("Partidas jugadas: " + (victoriasCpu + victoriasJugador));
-        System.out.println("============================================");
+    public String getStringEstadisticas() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("============================================\n");
+        sb.append("                ESTADISTICAS                \n");
+        sb.append("============================================\n");
+        sb.append("Manos ganadas por la CPU: ").append(victoriasCpu).append("\n");
+        sb.append("Manos ganadas por el Jugador: ").append(victoriasJugador).append("\n");
+        sb.append("Blackjacks obtenidos por el Jugador: ").append(blackjacksJugador).append("\n");
+        sb.append("Partidas jugadas: ").append(partidasJugadas).append("\n");
+        sb.append("============================================\n");
+        return sb.toString();
     }
 
     /**
      * constuctor
      */
     public Estadisticas(String archivoEstadisticas) {
-        try{
-            cargarEstadisticas(archivoEstadisticas);
-        } catch (IOException e) {
-            // No se ha podido cargar el archivo de estadísticas
-            // Se inicializan a 0
+        this.filePath = archivoEstadisticas;
+        cargarEstadisticas();
+    }
+
+    /**Constructor preferido para las estadisticas
+     * @param useDefault si es true se usan las estadisticas por defecto, si es false se cargan las estadisticas del archivo
+     * 
+     */
+    public Estadisticas(boolean useDefault){
+        if(!useDefault){
+            cargarEstadisticas();
+            guardarEstadisticas();
+        } else {
+            guardarEstadisticas();
         }
     }
 
@@ -79,27 +108,39 @@ public class Estadisticas {
      * @param archivoEstadisticas
      * @throws IOException
      */
-    private void cargarEstadisticas(String archivoEstadisticas) throws IOException {
-        byte[] bytes = Files.readAllBytes(Paths.get(archivoEstadisticas));
-        String contenido = new String(bytes);
-        String[] lineas = contenido.split("\n");
+    private void cargarEstadisticas(){
+        // Read the serialized object from a file
+        Gson gson = new Gson();
+        Estadisticas estadisticas;
+        try {
+            estadisticas = gson.fromJson(new FileReader(filePath), Estadisticas.class);
+        } catch (IOException e) {
+            // Imposible cargar el archivo. Se crea uno nuevo con las estadísticas iniciales
+            // guardarEstadisticas se encarga de crear el archivo
+            guardarEstadisticas();
+            return;
+        }
+        
 
-        for (String linea : lineas) {
-            String[] partes = linea.split("=");
-            String nombre = partes[0].trim();
-            String valor = partes[1].trim();
+        // Copy the values from the loaded object to this object
+        this.victoriasCpu = estadisticas.victoriasCpu;
+        this.victoriasJugador = estadisticas.victoriasJugador;
+        this.blackjacksJugador = estadisticas.blackjacksJugador;
+        this.partidasJugadas = estadisticas.partidasJugadas;
+    }
 
-            switch (nombre) {
-                case "victoriasCpu":
-                    victoriasCpu = Integer.parseInt(valor);
-                    break;
-                case "victoriasJugador":
-                    victoriasJugador = Integer.parseInt(valor);
-                    break;
-                default:
-                    // Opcional: Manejar casos de estad�sticas no reconocidas
-                    break;
-            }
+    public void guardarEstadisticas() {
+        // Serializar el objeto
+        Gson gson = new Gson();
+        try (FileWriter writer = new FileWriter(filePath)){
+            gson.toJson(this, writer);
+        } catch (IOException e) {
+            //No se ha podido guardar el archivo de estadísticas
+            //Se crea un archivo nuevo con las estadísticas iniciales en el path por defecto
+            filePath = DEFAULT_FILE_PATH;
+            guardarEstadisticas();
+            //Este return es para evitar recursividad infinita
+            return;
         }
     }
 }
