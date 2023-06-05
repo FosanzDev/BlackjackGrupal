@@ -1,4 +1,4 @@
-package com.nolete19.BlackJack.UI;
+package com.fosanzdev.BlackJack.UI;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -14,9 +14,9 @@ import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.nolete19.BlackJack.Cartas.Carta;
-import com.nolete19.BlackJack.Jugadores.Jugador;
-import com.nolete19.BlackJack.Jugadores.Mano;
+import com.fosanzdev.BlackJack.Cartas.Carta;
+import com.fosanzdev.BlackJack.Jugadores.Jugador;
+import com.fosanzdev.BlackJack.Jugadores.Mano;
 
 public class CardsPanel extends JPanel{
 

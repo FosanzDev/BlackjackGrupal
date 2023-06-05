@@ -1,4 +1,4 @@
-package com.nolete19.BlackJack.UI;
+package com.fosanzdev.BlackJack.UI;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -6,8 +6,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
-import com.nolete19.BlackJack.Jugadores.Jugador;
-import com.nolete19.BlackJack.Jugadores.JugadorHumano;
+import com.fosanzdev.BlackJack.Jugadores.Jugador;
+import com.fosanzdev.BlackJack.Jugadores.JugadorHumano;
 
 public class StatPanel extends JPanel{
     

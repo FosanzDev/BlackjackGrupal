@@ -1,4 +1,4 @@
-package com.nolete19.BlackJack.UI;
+package com.fosanzdev.BlackJack.UI;
 
 import java.awt.Dimension;
 import java.awt.Graphics;

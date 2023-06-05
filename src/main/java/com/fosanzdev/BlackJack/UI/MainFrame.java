@@ -1,17 +1,15 @@
-package com.nolete19.BlackJack.UI;
+package com.fosanzdev.BlackJack.UI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-import com.nolete19.BlackJack.Cartas.Baraja;
-import com.nolete19.BlackJack.Jugadores.JugadorHumano;
-import com.nolete19.BlackJack.Jugadores.JugadorIA;
+import com.fosanzdev.BlackJack.Cartas.Baraja;
+import com.fosanzdev.BlackJack.Jugadores.JugadorHumano;
+import com.fosanzdev.BlackJack.Jugadores.JugadorIA;
 
 public class MainFrame extends JFrame implements Runnable{
 
@@ -30,7 +28,7 @@ public class MainFrame extends JFrame implements Runnable{
         this.setVisible(true); //Make window visible
         this.setLayout(new BorderLayout());
         // this.setResizable(false);
-        ImageIcon image = new ImageIcon("src/main/java/com/nolete19/BlackJack/UI/Resources/logo.jpg");
+        ImageIcon image = new ImageIcon("src/main/java/com/fosanzdev/BlackJack/UI/Resources/logo.jpg");
         this.setIconImage(image.getImage());
 
         int xSize = this.getSize().width;

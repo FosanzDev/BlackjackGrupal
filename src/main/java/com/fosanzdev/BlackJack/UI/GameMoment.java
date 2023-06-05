@@ -1,7 +1,7 @@
-package com.nolete19.BlackJack.UI;
+package com.fosanzdev.BlackJack.UI;
 
-import com.nolete19.BlackJack.Jugadores.Jugador;
-import com.nolete19.BlackJack.Cartas.Baraja;
+import com.fosanzdev.BlackJack.Jugadores.Jugador;
+import com.fosanzdev.BlackJack.Cartas.Baraja;
 
 public class GameMoment {
 

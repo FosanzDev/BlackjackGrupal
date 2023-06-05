@@ -1,11 +1,8 @@
-package com.nolete19.BlackJack.UI;
-
-import java.awt.Component;
-import java.awt.Graphics2D;
+package com.fosanzdev.BlackJack.UI;
 
 import javax.swing.JLabel;
 
-import com.nolete19.BlackJack.Cartas.Baraja;
+import com.fosanzdev.BlackJack.Cartas.Baraja;
 public class MainTest {
     public static void main(String[] args) {
         int fps = 1;
