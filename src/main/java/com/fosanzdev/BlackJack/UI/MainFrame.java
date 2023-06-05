@@ -73,19 +73,11 @@ public class MainFrame extends JFrame implements Runnable{
         mainFrame.log("Crupier: " + crupier.toString());
 
         
-        GameMoment gameMoment = new GameMoment(jugador, crupier, false);
-        GameMoment gameMoment2 = new GameMoment(jugador2, crupier, false);
+        GameMoment gameMoment = new GameMoment(jugador, crupier, false, new String[]{"Pedir", "Plantarse"});
+        GameMoment gameMoment2 = new GameMoment(jugador2, crupier, false, new String[]{"Nada", "Plantarse"});
 
         mainFrame.setGameMoment(gameMoment);
         mainFrame.setVisible(true);
-
-        // try {
-        //     Thread.sleep(1000);
-        //     mainFrame.setGameMoment(gameMoment2);
-        // } catch (InterruptedException e) {
-        //     // TODO Auto-generated catch block
-        //     e.printStackTrace();
-        // }
 
         mainFrame.setVisible(true);
     }

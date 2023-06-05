@@ -23,12 +23,9 @@ public class CardsPanel extends JPanel{
     private Jugador jugador = null;
     private Jugador crupier = null;
     private boolean isFinished = false;
-    private Dimension offset;
-
-    public CardsPanel(Dimension size, Dimension offset){
+    public CardsPanel(Dimension size){
         super();
         this.setPreferredSize(size);
-        this.offset = offset;
     }
 
     @Override
@@ -43,13 +40,9 @@ public class CardsPanel extends JPanel{
         paintCards(g2d, jugador, crupier);
     }
 
-    public void setOffset(Dimension offset){
-        this.offset = offset;
-    }
-
     public void paintBackground(Graphics2D g2d){
         g2d.setColor(new java.awt.Color(0, 100, 0));
-        g2d.fillRect((int)offset.getWidth(), (int)offset.getHeight(), this.getWidth(), this.getHeight());
+        g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
     }
 
     private void paintCards(Graphics2D g2d, Jugador jugador2, Jugador crupier2) {
@@ -68,10 +61,8 @@ public class CardsPanel extends JPanel{
                 cartas = manoJugador.getCartas();
 
             int numCartasJugador = cartas.size();
-            int offsetX = (int) offset.getWidth();
-            int offsetY = (int) offset.getHeight();
-            int width = this.getWidth() - offsetX;
-            int height = (this.getHeight() - offsetY) / 2;
+            int width = this.getWidth();
+            int height = (this.getHeight()) / 2;
 
             for (int j = 0; j < numCartasJugador; j++) {
                 // Get the image of the card
@@ -85,17 +76,17 @@ public class CardsPanel extends JPanel{
                 Graphics2D g = resized.createGraphics();
                 g.drawImage(img, 0, 0, newImgWidth, newImgHeight, null);
 
-                int xPos = offsetX + (j * (width / numCartasJugador)) + ((width / numCartasJugador) - newImgWidth) / 2;
-                int yPos = offsetY + height + ((offsetY - height) - newImgHeight) / 2;
+                int xPos = (j * (width / numCartasJugador)) + ((width / numCartasJugador) - newImgWidth) / 2;
+                int yPos = 0 + height + ((0 - height) - newImgHeight) / 2;
 
-                if (xPos < offsetX)
-                    xPos = offsetX;
+                if (xPos < 0)
+                    xPos = 0;
 
-                if (yPos < offsetY)
-                    yPos = offsetY;
+                if (yPos < 0)
+                    yPos = 0;
 
                 // Draw the image
-                g2d.drawImage(resized, xPos, yPos + ((i-1) * (height - offsetY)), null);
+                g2d.drawImage(resized, xPos, yPos + ((i-1) * (height - 0)), null);
             }
         }
         

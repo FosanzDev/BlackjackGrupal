@@ -1,20 +1,22 @@
 package com.fosanzdev.BlackJack.UI;
 
 import com.fosanzdev.BlackJack.Jugadores.Jugador;
-import com.fosanzdev.BlackJack.Cartas.Baraja;
 
 public class GameMoment {
+    private static final String[] MAIN_MENU_OPTIONS = {"Nueva partida", "Estadisticas", "Opciones", "Salir"};
 
-    public static GameMoment INITIAL = new GameMoment(null, null, false);
+    public static GameMoment INITIAL = new GameMoment(null, null, false, MAIN_MENU_OPTIONS);
 
     private Jugador jugador;
     private Jugador crupier;
     private boolean isFinished;
+    private String[] options;
 
-    public GameMoment(Jugador jugador, Jugador crupier, boolean isFinished){
+    public GameMoment(Jugador jugador, Jugador crupier, boolean isFinished, String... options){
         this.jugador = jugador;
         this.crupier = crupier;
         this.isFinished = isFinished;
+        this.options = options;
     }
 
     public Jugador getJugador(){
@@ -27,5 +29,9 @@ public class GameMoment {
 
     public boolean isFinished(){
         return isFinished;
+    }
+
+    public String[] getOptions(){
+        return options;
     }
 }

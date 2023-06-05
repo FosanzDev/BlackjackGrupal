@@ -12,10 +12,11 @@ public class GamePanel extends JPanel{
 
     private Dimension statPanelSize;
     private Dimension cardsPanelSize;
+    private Dimension buttonPanelSize;
 
     private StatPanel statPanel;
     private CardsPanel cardsPanel;
-    private JPanel buttonPanel;
+    private ButtonPanel buttonPanel;
 
     public GamePanel(Dimension size){
         super();
@@ -29,8 +30,13 @@ public class GamePanel extends JPanel{
 
         //Main game panel
         this.cardsPanelSize = new Dimension((int) (size.getWidth() * 0.8), (int) size.getHeight());
-        cardsPanel = new CardsPanel(cardsPanelSize, new Dimension(statPanelSize.width, 0));
+        cardsPanel = new CardsPanel(cardsPanelSize);
         this.add(cardsPanel, BorderLayout.CENTER);
+
+        //Button panel
+        this.buttonPanelSize = new Dimension((int) (size.getWidth() * 0.1), (int) size.getHeight());
+        buttonPanel = new ButtonPanel(buttonPanelSize);
+        this.add(buttonPanel, BorderLayout.EAST);
     }
 
     @Override
@@ -38,10 +44,7 @@ public class GamePanel extends JPanel{
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
 
-        //Paint the background
-        paintBackground(g2d);
         resizeAll();
-        paintAll(g2d);
     }
 
     public void resizeAll(){
@@ -49,22 +52,15 @@ public class GamePanel extends JPanel{
         statPanel.setPreferredSize(statPanelSize);
 
         cardsPanelSize = new Dimension((int) (this.getSize().getWidth() * 0.8), (int) this.getSize().getHeight());
-        cardsPanel.setOffset(new Dimension(statPanelSize.width, 0));
         cardsPanel.setPreferredSize(cardsPanelSize);
-    }
 
-    public void paintAll(Graphics2D g2d){
-        cardsPanel.paint(g2d);
-        statPanel.paint(g2d);
-    }
-
-    public void paintBackground(Graphics2D g){
-        g.setColor(new Color(0, 150, 100));
-        g.fillRect(0, 0, this.getWidth(), this.getHeight());
+        buttonPanelSize = new Dimension((int) (this.getSize().getWidth() * 0.1), (int) this.getSize().getHeight());
+        buttonPanel.setPreferredSize(buttonPanelSize);
     }
 
     public void setGameMoment(GameMoment gameMoment){
         statPanel.setPlayer(gameMoment.getJugador());
         cardsPanel.setGameMoment(gameMoment);
+        buttonPanel.setGameMoment(gameMoment);
     }
 }
