@@ -44,7 +44,7 @@ public class Carta {
 
     public String toPath(){
         StringBuilder sb = new StringBuilder();
-        sb.append("src/main/java/com/nolete19/BlackJack/UI/Resources/PNGCards/");
+        sb.append("src/main/java/com/fosanzdev/BlackJack/UI/Resources/PNGCards/");
         sb.append(this.getValor().toString());
         switch (this.getPalo()){
             case CORAZONES:

@@ -60,9 +60,9 @@ public class MainFrame extends JFrame implements Runnable{
         JugadorIA crupier = new JugadorIA("Crupier", 2000);
         jugador.addCarta(baraja.sacarCartaPila());
         jugador.addCarta(baraja.sacarCartaPila());
-        jugador2.addCarta(baraja.sacarCartaPila());
-        jugador2.addCarta(baraja.sacarCartaPila());
         jugador.addCarta(baraja.sacarCartaPila());
+        jugador2.addCarta(baraja.sacarCartaPila());
+        jugador2.addCarta(baraja.sacarCartaPila());
         crupier.addCarta(baraja.sacarCartaPila());
         crupier.addCarta(baraja.sacarCartaPila());
 
@@ -77,6 +77,15 @@ public class MainFrame extends JFrame implements Runnable{
         GameMoment gameMoment2 = new GameMoment(jugador2, crupier, false);
 
         mainFrame.setGameMoment(gameMoment);
+        mainFrame.setVisible(true);
+
+        // try {
+        //     Thread.sleep(1000);
+        //     mainFrame.setGameMoment(gameMoment2);
+        // } catch (InterruptedException e) {
+        //     // TODO Auto-generated catch block
+        //     e.printStackTrace();
+        // }
 
         mainFrame.setVisible(true);
     }

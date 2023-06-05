@@ -53,39 +53,58 @@ public class CardsPanel extends JPanel{
     }
 
     private void paintCards(Graphics2D g2d, Jugador jugador2, Jugador crupier2) {
-
-        // System.out.println("Players are not nul");
-        // Mano manoCrupier = isFinished ? crupier.getMano() : crupier.getMano().getUniqueCard();
+        if (jugador == null || crupier == null)
+            return;
+        Mano manoCrupier = isFinished ? crupier.getMano() : crupier.getMano().getUniqueCard();
         Mano manoJugador = jugador.getMano();
 
-        ArrayList<Carta> cartasJugador = manoJugador.getCartas();
-        int numCartasJugador = cartasJugador.size();
-        int offsetX = (int) offset.getWidth();
-        int offsetY = (int) offset.getHeight();
-        int width = this.getWidth() - offsetX; 
-        int height = (this.getHeight()-offsetY) / 2;
+        for (int i = 1; i <= 2; i++) {
+            ArrayList<Carta> cartas;
+            if (i == 1 && !isFinished)
+                cartas = manoCrupier.getCartas();
+            else if (i == 1 && isFinished)
+                cartas = manoCrupier.getCartas();
+            else
+                cartas = manoJugador.getCartas();
 
-        for (int i=0; i<numCartasJugador; i++){
-            Carta carta = cartasJugador.get(i);
-            Image img = carta.getImage();
-            int imgWidth = img.getWidth(null);
-            int imgHeight = img.getHeight(null);
+            int numCartasJugador = cartas.size();
+            int offsetX = (int) offset.getWidth();
+            int offsetY = (int) offset.getHeight();
+            int width = this.getWidth() - offsetX;
+            int height = (this.getHeight() - offsetY) / 2;
 
-            int newImgHeight = height;
-            int newImgWidth = (int) (imgWidth * ((double) newImgHeight / imgHeight));
+            for (int j = 0; j < numCartasJugador; j++) {
+                // Get the image of the card
+                Carta carta = cartas.get(j);
+                Image img = carta.getImage();
+                int imgWidth = img.getWidth(null);
+                int imgHeight = img.getHeight(null);
+                int newImgHeight = (int) (height * 0.8);
+                int newImgWidth = (int) (imgWidth * ((double) newImgHeight / imgHeight));
+                BufferedImage resized = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+                Graphics2D g = resized.createGraphics();
+                g.drawImage(img, 0, 0, newImgWidth, newImgHeight, null);
 
-            BufferedImage resized = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g = resized.createGraphics();
-            g.drawImage(img, 0, 0, newImgWidth, newImgHeight, null);
+                int xPos = offsetX + (j * (width / numCartasJugador)) + ((width / numCartasJugador) - newImgWidth) / 2;
+                int yPos = offsetY + height + ((offsetY - height) - newImgHeight) / 2;
 
-            int xPos = offsetX + (width / 2) - (width / 4) + (i * width / 2) - (i * width / numCartasJugador);
-            int yPos = offsetY + (height / 2) - (height / 2);
-            g2d.drawImage(resized, xPos, yPos, null);
+                if (xPos < offsetX)
+                    xPos = offsetX;
+
+                if (yPos < offsetY)
+                    yPos = offsetY;
+
+                // Draw the image
+                g2d.drawImage(resized, xPos, yPos + ((i-1) * (height - offsetY)), null);
+            }
         }
+        
     }
 
     public void setGameMoment(GameMoment gameMoment){
         jugador = gameMoment.getJugador();
+        crupier = gameMoment.getCrupier();
+        isFinished = gameMoment.isFinished();
     }
     
 }

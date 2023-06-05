@@ -20,4 +20,12 @@ public class GameMoment {
     public Jugador getJugador(){
         return jugador;
     }
+
+    public Jugador getCrupier(){
+        return crupier;
+    }
+
+    public boolean isFinished(){
+        return isFinished;
+    }
 }
