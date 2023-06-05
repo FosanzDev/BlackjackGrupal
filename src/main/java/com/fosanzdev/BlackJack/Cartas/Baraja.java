@@ -1,14 +1,14 @@
 package com.fosanzdev.BlackJack.Cartas;
 import java.util.Random;
+import java.util.Stack;
 
 public class Baraja {
     //Atributo
-    private static final int CANT_CARTAS = 52;
-    private Carta[] cartas;
+    private Stack<Carta> cartas;
 
     //Contructor
     public Baraja() {
-        cartas = new Carta[CANT_CARTAS];
+        cartas = new Stack<>();
         rellenarBaraja();
         barajar();
     }
@@ -21,12 +21,10 @@ public class Baraja {
         Palos[] palos = Palos.values();
         Valores[] valores = Valores.values();
 
-        int cont = 0;
         for (Palos palo : palos) {
             for (Valores valor : valores) {
                 Carta carta = new Carta(palo,valor);
-                cartas[cont] = carta;
-                cont++;
+                cartas.push(carta);
             }
         }
     }
@@ -37,13 +35,13 @@ public class Baraja {
      */
     private void barajar(){
         Random random = new Random();
-        for (int i = 0; i < CANT_CARTAS; i++) {
-            int posicionRandom = random.nextInt(CANT_CARTAS);
-            Carta cartaTemp = cartas[i];
-            cartas[i] = cartas[posicionRandom];
-            cartas[posicionRandom] = cartaTemp;
+        Stack<Carta> barajadas = new Stack<>();
+        for (int i = 0; i < cartas.size(); i++) {
+            int posicionRandom = random.nextInt(cartas.size());
+            barajadas.push(cartas.get(posicionRandom));
+            cartas.remove(posicionRandom);
         }
-
+        cartas = barajadas;
     }
 
     /**
@@ -52,21 +50,13 @@ public class Baraja {
      * @return Retorna un objeto carta con el que poder jugar.
      */
     public Carta sacarCartaPila() {
-        Carta cartaSeleccionada;
-        for(int i = 0; i < cartas.length;i++){
-            if(cartas[i] != null){
-                cartaSeleccionada = cartas[i];
-                cartas[i] = null;
-                return cartaSeleccionada;
-            }
-        }
-        return null;
+        return cartas.pop();
     }
 
 
 
     //Getters
     public Carta[] getCartas() {
-        return cartas;
+        return cartas.toArray(new Carta[0]);
     }
 }

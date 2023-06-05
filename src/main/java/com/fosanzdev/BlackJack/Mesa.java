@@ -16,7 +16,7 @@ import com.fosanzdev.BlackJack.Utils.UIIO;
 public class Mesa {
 
     //Atributos
-    private final Baraja baraja;
+    private Baraja baraja;
     private final ArrayList<Jugador> jugadores;
 
     private JugadorIA crupier;
@@ -70,6 +70,7 @@ public class Mesa {
             for (Jugador jugador : jugadores) {
                 repartirCarta(jugador);
             }
+            repartirCarta(crupier);
         }
     }
 
@@ -132,8 +133,8 @@ public class Mesa {
                         }
                         repartirCarta(jugador);
 
-                        // Si el jugador se pasa de 21, no puede pedir más cartas
-                        if (mano.getPuntuacion() > 21) {
+                        // Si el jugador se pasa o tiene 21, no puede pedir más cartas
+                        if (mano.getPuntuacion() >= 21) {
                             ioInterface.print("Te has pasado!", true);
                             inBounds = false;
                             if (isIA)
@@ -226,6 +227,7 @@ public class Mesa {
             // Se resetea la mano del jugador
             jugador.reset();
             crupier.reset();
+            baraja = new Baraja();
         }
 
         //Para evitar el ConcurrentModificationException creamos una lista auxiliar
