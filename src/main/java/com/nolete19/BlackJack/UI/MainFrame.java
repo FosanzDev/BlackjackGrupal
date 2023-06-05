@@ -75,8 +75,8 @@ public class MainFrame extends JFrame implements Runnable{
         mainFrame.log("Crupier: " + crupier.toString());
 
         
-        GameMoment gameMoment = new GameMoment(jugador, crupier, false, mainFrame.getSize());
-        GameMoment gameMoment2 = new GameMoment(jugador2, crupier, false, mainFrame.getSize());
+        GameMoment gameMoment = new GameMoment(jugador, crupier, false);
+        GameMoment gameMoment2 = new GameMoment(jugador2, crupier, false);
 
         mainFrame.setVisible(true);
     }

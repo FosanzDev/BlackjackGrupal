@@ -64,4 +64,8 @@ public class StatPanel extends JPanel{
             g2d.drawString(Integer.toString(jugador.getMano().getPuntuacion()), xPos, yPos * 4 - yPos/2 + 20);
         }
     }
+
+    public void setPlayer(Jugador jugador){
+        this.jugador = jugador;
+    }
 }
