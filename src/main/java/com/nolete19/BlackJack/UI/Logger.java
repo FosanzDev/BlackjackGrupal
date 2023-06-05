@@ -14,17 +14,12 @@ public class Logger extends JPanel{
         this.setPreferredSize(size);
     }
 
-    public void updateSize(){
-        this.setSize(getPreferredSize()); //Set size of panel
-        repaint();
-    }
-
     public void log(String message){
         String preText = text;
         text = "";
         text += (message + "\n" + preText);
-        if (text.length() > 300){
-            text = text.substring(0, 300);
+        if (text.length() > 500){
+            text = text.substring(0, 500);
         }
         repaint();
     }
@@ -36,7 +31,6 @@ public class Logger extends JPanel{
 
         //Paint the textArea
         paintTextArea(g2d);
-        updateSize();
     }
 
     private void paintTextArea(Graphics g){
