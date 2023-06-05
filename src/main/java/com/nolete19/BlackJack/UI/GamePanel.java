@@ -65,5 +65,6 @@ public class GamePanel extends JPanel{
 
     public void setGameMoment(GameMoment gameMoment){
         statPanel.setPlayer(gameMoment.getJugador());
+        cardsPanel.setGameMoment(gameMoment);
     }
 }

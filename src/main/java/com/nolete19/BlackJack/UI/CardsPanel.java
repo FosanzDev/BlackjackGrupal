@@ -3,9 +3,15 @@ package com.nolete19.BlackJack.UI;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.nio.Buffer;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.nolete19.BlackJack.Cartas.Carta;
@@ -47,27 +53,39 @@ public class CardsPanel extends JPanel{
     }
 
     private void paintCards(Graphics2D g2d, Jugador jugador2, Jugador crupier2) {
-        if (jugador == null || crupier == null){
-            return;
-        }
-        Mano manoCrupier = isFinished ? crupier.getMano() : crupier.getMano().getUniqueCard();
+
+        // System.out.println("Players are not nul");
+        // Mano manoCrupier = isFinished ? crupier.getMano() : crupier.getMano().getUniqueCard();
         Mano manoJugador = jugador.getMano();
 
-        //Paint the cards of the crupier
-        int xPos = getWidth();
-        int maxY = getHeight()/2;
-        int numCartas = manoCrupier.getCartas().size();
-        ArrayList<Carta> cartas = manoCrupier.getCartas();
+        ArrayList<Carta> cartasJugador = manoJugador.getCartas();
+        int numCartasJugador = cartasJugador.size();
+        int offsetX = (int) offset.getWidth();
+        int offsetY = (int) offset.getHeight();
+        int width = this.getWidth() - offsetX; 
+        int height = (this.getHeight()-offsetY) / 2;
 
-        for (int i=0; i<numCartas; i++){
-            int imageWidth = cartas.get(i).getImage().getWidth(null);
-            int imageHeight = cartas.get(i).getImage().getHeight(null);
-            int imageX = xPos/numCartas + xPos/numCartas/2;
-            int imageY = maxY/2 - imageHeight/2;
-            cartas.get(i).getImage().getScaledInstance(imageWidth, imageHeight, Image.SCALE_SMOOTH);
+        for (int i=0; i<numCartasJugador; i++){
+            Carta carta = cartasJugador.get(i);
+            Image img = carta.getImage();
+            int imgWidth = img.getWidth(null);
+            int imgHeight = img.getHeight(null);
 
-            int x = xPos/numCartas + xPos/numCartas/2;
+            int newImgHeight = height;
+            int newImgWidth = (int) (imgWidth * ((double) newImgHeight / imgHeight));
+
+            BufferedImage resized = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g = resized.createGraphics();
+            g.drawImage(img, 0, 0, newImgWidth, newImgHeight, null);
+
+            int xPos = offsetX + (width / 2) - (width / 4) + (i * width / 2) - (i * width / numCartasJugador);
+            int yPos = offsetY + (height / 2) - (height / 2);
+            g2d.drawImage(resized, xPos, yPos, null);
         }
+    }
+
+    public void setGameMoment(GameMoment gameMoment){
+        jugador = gameMoment.getJugador();
     }
     
 }

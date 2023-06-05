@@ -78,6 +78,8 @@ public class MainFrame extends JFrame implements Runnable{
         GameMoment gameMoment = new GameMoment(jugador, crupier, false);
         GameMoment gameMoment2 = new GameMoment(jugador2, crupier, false);
 
+        mainFrame.setGameMoment(gameMoment);
+
         mainFrame.setVisible(true);
     }
 
@@ -87,6 +89,10 @@ public class MainFrame extends JFrame implements Runnable{
 
         gamePanelDimension = new Dimension(getSize().width, getSize().height - loggerDimension.height);
         gamePanel.setPreferredSize(gamePanelDimension);
+    }
+
+    public void setGameMoment(GameMoment gameMoment){
+        gamePanel.setGameMoment(gameMoment);
     }
 
     public void repaint(){
