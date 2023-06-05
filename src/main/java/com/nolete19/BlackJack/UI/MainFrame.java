@@ -15,13 +15,17 @@ import com.nolete19.BlackJack.Jugadores.JugadorIA;
 
 public class MainFrame extends JFrame implements Runnable{
 
+    private static Dimension startSize = new Dimension(800, 600);
+    private Dimension loggerDimension = new Dimension(startSize.width, startSize.height/4);
+    private Dimension gamePanelDimension = new Dimension(startSize.width, startSize.height - loggerDimension.height);
+
     private static Logger logger;
     private static GamePanel gamePanel;
 
     public MainFrame(){
         super("BlackJack");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Default close operation
-         this.setSize(800, 600); //Set size of window
+        this.setSize(800, 600); //Set size of window
         this.setLocationRelativeTo(null); //Center window 
         this.setVisible(true); //Make window visible
         this.setLayout(new BorderLayout());
@@ -36,12 +40,14 @@ public class MainFrame extends JFrame implements Runnable{
         this.setBackground(new Color(0,0,0));
 
 
-        logger = new Logger(new Dimension(xSize, ySize/4));
+        logger = new Logger(loggerDimension);
         this.add(logger, BorderLayout.SOUTH);
 
-        // gamePanel = new GamePanel();
-        // this.add(gamePanel, BorderLayout.CENTER);
-        // gamePanel.setSize(getPreferredSize()); //Set size of panel
+        gamePanel = new GamePanel(gamePanelDimension);
+        this.add(gamePanel, BorderLayout.CENTER);
+
+        Thread mainFrameThread = new Thread(this);
+        mainFrameThread.start();
     }
 
     public void log(String message){
@@ -73,18 +79,19 @@ public class MainFrame extends JFrame implements Runnable{
         GameMoment gameMoment2 = new GameMoment(jugador2, crupier, false, mainFrame.getSize());
 
         mainFrame.setVisible(true);
-
-        Thread gameThread = new Thread(mainFrame);
-        gameThread.start();
     }
 
-    public void setLoggerSize(){
-        logger.setPreferredSize(new Dimension(getSize().width, getSize().height/4));
+    public void resizeAll(){
+        loggerDimension = new Dimension(getSize().width, getSize().height/4);
+        logger.setPreferredSize(loggerDimension);
+
+        gamePanelDimension = new Dimension(getSize().width, getSize().height - loggerDimension.height);
+        gamePanel.setPreferredSize(gamePanelDimension);
     }
 
     public void repaint(){
         super.repaint();
-        setLoggerSize();
+        resizeAll();
     }
 
     @Override
