@@ -1,10 +1,8 @@
 package com.fosanzdev.BlackJack.UI;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
@@ -42,8 +40,6 @@ public class GamePanel extends JPanel{
     @Override
     public void paint(Graphics g){
         super.paint(g);
-        Graphics2D g2d = (Graphics2D) g;
-
         resizeAll();
     }
 
@@ -62,5 +58,9 @@ public class GamePanel extends JPanel{
         statPanel.setPlayer(gameMoment.getJugador());
         cardsPanel.setGameMoment(gameMoment);
         buttonPanel.setGameMoment(gameMoment);
+    }
+
+    public int waitForButton(GameMoment gameMoment){
+        return buttonPanel.waitForButton(gameMoment.getOptions());
     }
 }

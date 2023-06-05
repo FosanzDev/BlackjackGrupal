@@ -38,8 +38,10 @@ public class Mano implements Iterable<Carta>{
      * @return Devuelve la puntuacion calculada.
      */
     private void calcularPuntuacion(){
-        if (cartas.size() == 0){
+        System.out.println("Calculando puntuacion");
+        if (cartas.size() == 0 || cartas == null){
             puntuacion = 0;
+            System.out.println("No hay cartas en la mano");
             return;
         }
         
@@ -47,7 +49,13 @@ public class Mano implements Iterable<Carta>{
         boolean diez = false;
         puntuacion = 0;
 
+        System.out.println("Recorriendo cartas");
         for (Carta carta : cartas){
+            System.out.println("Carta: " + carta.toString());
+            if (carta == null){
+                System.out.println("Carta nula");
+                puntuacion = 0;
+            }
             puntuacion = puntuacion + carta.getValor().getIntegerValue();
             if (cartas.size() == 2){
                 if (carta.getValor() == Valores.AS){

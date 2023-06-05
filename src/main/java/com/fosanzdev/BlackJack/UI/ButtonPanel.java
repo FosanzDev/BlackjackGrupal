@@ -5,12 +5,15 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.concurrent.CountDownLatch;
 
 import javax.swing.JPanel;
 
-public class ButtonPanel extends JPanel implements ButtonPanelInterface, MouseListener{
+public class ButtonPanel extends JPanel implements MouseListener{
 
-    private String[] options = new String[] {"Nueva carta", "Plantarse"};
+    private String[] options = new String[] {""};
+    private int buttonClicked;
+    private CountDownLatch latch;
 
     public ButtonPanel(Dimension size){
         super();
@@ -41,7 +44,6 @@ public class ButtonPanel extends JPanel implements ButtonPanelInterface, MouseLi
         int height = this.getHeight();
 
         int buttonHeight = height / options;
-        int buttonWidth = width;
 
         //Draw the separator lines
         g2d.setColor(new java.awt.Color(0, 0, 0));
@@ -67,6 +69,23 @@ public class ButtonPanel extends JPanel implements ButtonPanelInterface, MouseLi
         return button;
     }
 
+    public int waitForButton(String... options) {
+        this.options = options;
+        System.out.println("Waiting for button");
+        this.latch = new CountDownLatch(1);
+        try {
+            this.latch.await();
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        System.out.println("Button clicked: " + this.buttonClicked);
+        latch.countDown();
+        int button = this.buttonClicked;
+        this.buttonClicked = -1;
+        return button;
+    }
+    
     public void setGameMoment(GameMoment gameMoment){
         setOptions(gameMoment.getOptions());
     }
@@ -83,7 +102,8 @@ public class ButtonPanel extends JPanel implements ButtonPanelInterface, MouseLi
 
         //Get the button by the mouse position
         int button = getButtonByPosition(x, y);
-        pressed(button);
+        buttonClicked = button;
+        latch.countDown();
     }
 
     @Override
@@ -100,10 +120,5 @@ public class ButtonPanel extends JPanel implements ButtonPanelInterface, MouseLi
 
     @Override
     public void mouseExited(MouseEvent e) {
-    }
-
-    @Override
-    public int pressed(int button) {
-        return button;
     }
 }

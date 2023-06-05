@@ -3,6 +3,7 @@ package com.fosanzdev.BlackJack;
 import java.util.ArrayList;
 
 import com.fosanzdev.BlackJack.Cartas.Baraja;
+import com.fosanzdev.BlackJack.Cartas.Carta;
 import com.fosanzdev.BlackJack.Configuracion.Configuracion;
 import com.fosanzdev.BlackJack.Estadisticas.Estadisticas;
 import com.fosanzdev.BlackJack.Jugadores.Jugador;
@@ -10,6 +11,7 @@ import com.fosanzdev.BlackJack.Jugadores.JugadorHumano;
 import com.fosanzdev.BlackJack.Jugadores.JugadorIA;
 import com.fosanzdev.BlackJack.Jugadores.Mano;
 import com.fosanzdev.BlackJack.Utils.IO;
+import com.fosanzdev.BlackJack.Utils.UIIO;
 
 public class Mesa {
 
@@ -20,12 +22,12 @@ public class Mesa {
     private JugadorIA crupier;
     private int apuestaMinima;
     private int apuestaMaxima;
-    private IO ioInterface;
+    private UIIO ioInterface;
     private Configuracion configuracion;
     private Estadisticas estadisticas;
 
     //Constructor
-    public Mesa(IO ioInterface, Configuracion configuracion, Estadisticas estadisticas) {
+    public Mesa(UIIO ioInterface, Configuracion configuracion, Estadisticas estadisticas) {
         this.baraja = new Baraja();
         this.apuestaMinima = configuracion.apuestaMinima;
         this.apuestaMaxima = configuracion.apuestaMaxima;
@@ -259,10 +261,14 @@ public class Mesa {
      * @param jugador Recibe como parametor un Jugador para asignar dicha carta a su mano.
      */
     public void repartirCarta(Jugador jugador) {
+        System.out.println("Repartiendo carta a " + jugador.getNombre());
+        Carta c = baraja.sacarCartaPila();
+        System.out.println("Se ha sacado la carta " + c.toString());
         jugador.addCarta(baraja.sacarCartaPila());
+        System.out.println("Carta repartida");
     }
     // Este método se utiliza para obtener la interfaz de entrada y salida
-    public IO getIoInterface() {
+    public UIIO getIoInterface() {
         return ioInterface;
     }
     //Getters

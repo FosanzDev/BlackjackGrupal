@@ -1,15 +1,11 @@
 package com.fosanzdev.BlackJack.UI;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-
-import com.fosanzdev.BlackJack.Cartas.Baraja;
-import com.fosanzdev.BlackJack.Jugadores.JugadorHumano;
-import com.fosanzdev.BlackJack.Jugadores.JugadorIA;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class MainFrame extends JFrame implements Runnable{
 
@@ -31,10 +27,6 @@ public class MainFrame extends JFrame implements Runnable{
         ImageIcon image = new ImageIcon("src/main/java/com/fosanzdev/BlackJack/UI/Resources/logo.jpg");
         this.setIconImage(image.getImage());
 
-        int xSize = this.getSize().width;
-        int ySize = this.getSize().height;
-
-        System.out.println("xSize: " + xSize + " ySize: " + ySize);
         this.setBackground(new Color(0,0,0));
 
 
@@ -52,34 +44,58 @@ public class MainFrame extends JFrame implements Runnable{
         logger.log(message);
     }
 
+    public int waitForButton(GameMoment gameMoment){
+        return gamePanel.waitForButton(gameMoment);
+    }
 
-    public static void main(String[] args) {
-        Baraja baraja = new Baraja();
-        JugadorHumano jugador = new JugadorHumano("Esteban", 2000);
-        JugadorIA jugador2 = new JugadorIA("Jugador 2", 2000);
-        JugadorIA crupier = new JugadorIA("Crupier", 2000);
-        jugador.addCarta(baraja.sacarCartaPila());
-        jugador.addCarta(baraja.sacarCartaPila());
-        jugador.addCarta(baraja.sacarCartaPila());
-        jugador2.addCarta(baraja.sacarCartaPila());
-        jugador2.addCarta(baraja.sacarCartaPila());
-        crupier.addCarta(baraja.sacarCartaPila());
-        crupier.addCarta(baraja.sacarCartaPila());
+    public String waitForString(String text) {
+        JFrame stringReader = new JFrame();
+        stringReader.setSize(200, 100);
+        stringReader.setLocationRelativeTo(null);
+        stringReader.setVisible(true);
 
-        MainFrame mainFrame = new MainFrame();
-        mainFrame.log("Main frame created");
-        mainFrame.log("Jugador: " + jugador.toString());
-        mainFrame.log("Jugador 2: " + jugador2.toString());
-        mainFrame.log("Crupier: " + crupier.toString());
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
 
-        
-        GameMoment gameMoment = new GameMoment(jugador, crupier, false, new String[]{"Pedir", "Plantarse"});
-        GameMoment gameMoment2 = new GameMoment(jugador2, crupier, false, new String[]{"Nada", "Plantarse"});
+        JLabel label = new JLabel(text);
+        panel.add(label, BorderLayout.NORTH);
 
-        mainFrame.setGameMoment(gameMoment);
-        mainFrame.setVisible(true);
+        JTextArea textArea = new JTextArea();
+        textArea.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    stringReader.dispose();
+                }
+            }
+        });
+        panel.add(textArea, BorderLayout.CENTER);
 
-        mainFrame.setVisible(true);
+        JButton button = new JButton("Enviar");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textArea.setText(textArea.getText());
+                stringReader.dispose();
+            }
+        });
+        panel.add(button, BorderLayout.SOUTH);
+
+        stringReader.add(panel);
+
+        stringReader.pack();
+
+        textArea.requestFocus();
+
+        while (stringReader.isVisible()) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return textArea.getText();
     }
 
     public void resizeAll(){
@@ -101,12 +117,9 @@ public class MainFrame extends JFrame implements Runnable{
 
     @Override
     public void run() {
-        int i = 0;
         while(true){
             try {
                 Thread.sleep(1000/60);
-                log ("Frame: " + i++);
-                i++;
                 repaint();
             } catch (InterruptedException e) {
                 e.printStackTrace();

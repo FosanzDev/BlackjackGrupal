@@ -3,15 +3,10 @@ package com.fosanzdev.BlackJack.UI;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.nio.Buffer;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.fosanzdev.BlackJack.Cartas.Carta;

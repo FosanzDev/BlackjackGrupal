@@ -1,28 +1,33 @@
 package com.fosanzdev.BlackJack;
 
-import java.util.Scanner;
-
 import com.fosanzdev.BlackJack.Configuracion.Configuracion;
 import com.fosanzdev.BlackJack.Estadisticas.Estadisticas;
 import com.fosanzdev.BlackJack.Jugadores.JugadorHumano;
 import com.fosanzdev.BlackJack.Jugadores.JugadorIA;
+import com.fosanzdev.BlackJack.UI.GameMoment;
+import com.fosanzdev.BlackJack.UI.MainFrame;
 import com.fosanzdev.BlackJack.Utils.IO;
+import com.fosanzdev.BlackJack.Utils.UIIO;
 
 public class Main {
 
     public static void main(String[] args) {
         Configuracion config = new Configuracion("config.json");
         Estadisticas stats = new Estadisticas("estadisticas.json");
-        IO ioInterface = new IO(new Scanner(System.in));
+        MainFrame mainFrame = new MainFrame();
+        mainFrame.setVisible(true);
+
+        mainFrame.log("Bienvenido a BlackJack");
+        GameMoment menu = new GameMoment(null, null, false, new String[]{"Nueva partida", "Estadisticas", "Configuracion", "Salir"});
+        mainFrame.setGameMoment(menu);
+        UIIO ioInterface = new UIIO(mainFrame);
 
         boolean continues = true;
 
         while (continues) {
-            ioInterface.print(Output.getMainMenu(), true);
-            int option = 0;
-            option = ioInterface.readLimitedInt("Opcion: ", 1, 4, false);
-            switch (option) {
-                case 1:
+            int opt = ioInterface.readOption(menu);
+            switch (opt) {
+                case 0:
                     // Empezar partida
                     // Creacion de la mesa
                     Mesa mesa = new Mesa(ioInterface, config, stats);
@@ -34,7 +39,7 @@ public class Main {
 
                     // Creacion de los jugadores humanos
                     for (int i = 0; i < config.numeroJugadoresHumanos; i++) {
-                        String nombre = ioInterface.readString("Nombre del jugador " + i + ": ", false);
+                        String nombre = ioInterface.readString("Nombre del jugador " + i + ": ");
                         mesa.addJugador(new JugadorHumano(nombre, config.saldoInicialJugadoresHumanos));
                     }
 
@@ -44,18 +49,19 @@ public class Main {
                     juego.run();
                     break;
 
-                case 2:
+                case 1:
                     ioInterface.print(stats.getStringEstadisticas(), true);
                     ioInterface.waitEnter();
                     break;
 
-                case 3:
-                    enterConfigSubmenu(config.settingsAvailable(), ioInterface, config, stats);
-                    break;
+                case 2:
+                    // enterConfigSubmenu(config.settingsAvailable(), ioInterface, config, stats);
+                    // break;
 
-                case 4:
+                case 3:
                     ioInterface.print("¡Hasta luego!", true);
                     continues = false;
+                    System.exit(0);
                     break;
             }
 

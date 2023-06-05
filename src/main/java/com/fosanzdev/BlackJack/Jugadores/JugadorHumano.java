@@ -12,13 +12,15 @@ public class JugadorHumano extends Jugador {
         ioInterface.print("-- Tu mano --", true);
         ioInterface.print(mano.toString(), true);
         ioInterface.print("Puntuación: " + mano.getPuntuacion(), true);
-        String option = ioInterface.readString("Desea una nueva carta? (s/n)", true, 
-            new String[] {"s", "n", "si", "no"});
+        int option = ioInterface.readOption("Pedir carta", "Plantarse");
         
-        if (option.equals("s") || option.equalsIgnoreCase("si")) {
-            return Opciones.PEDIR_CARTA;
-        } else {
-            return Opciones.PLANTARSE;
+        switch (option) {
+            case 0:
+                return Opciones.PEDIR_CARTA;
+            case 1:
+                return Opciones.PLANTARSE;
+            default:
+                return Opciones.PLANTARSE;
         }
     }
 
@@ -30,7 +32,7 @@ public class JugadorHumano extends Jugador {
         ioInterface.print("Tu saldo: " + saldo + " // Apuesta mínima: " + min + " // Apuesta máxima: " + max, true);
         while (true){
             try{
-                int apuesta = ioInterface.readLimitedInt("Introduce cantidad a apostar: ", min, max, false);
+                int apuesta = ioInterface.readLimitedInt("Introduce cantidad a apostar: ", min, max);
                 if (apuesta > saldo){
                     ioInterface.print("No tienes suficiente saldo", true);
                 } else {

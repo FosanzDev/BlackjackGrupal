@@ -3,6 +3,7 @@ import com.fosanzdev.BlackJack.Mesa;
 import com.fosanzdev.BlackJack.Cartas.Carta;
 import com.fosanzdev.BlackJack.Cartas.Valores;
 import com.fosanzdev.BlackJack.Utils.IO;
+import com.fosanzdev.BlackJack.Utils.UIIO;
 
 
 public abstract class Jugador {
@@ -13,7 +14,7 @@ public abstract class Jugador {
     protected int puntuacion;
     protected int apuesta;
     protected Mesa mesa;
-    protected IO ioInterface;
+    protected UIIO ioInterface;
 
     //Constructor
     public Jugador(String nombre, int saldo) {
