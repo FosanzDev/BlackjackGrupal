@@ -48,16 +48,23 @@ public class Mano implements Iterable<Carta>{
         puntuacion = 0;
 
         for (Carta carta : cartas){
-            puntuacion = puntuacion + carta.getValor().getIntegerValue();
+            if (carta.getValor() == Valores.AS){
+                as = true;
+            }else if (carta.getValor().getIntegerValue() == 10){
+                diez = true;
+            }
+
             if (cartas.size() == 2){
-                if (carta.getValor() == Valores.AS){
-                    as = true;
-                }else if (carta.getValor().getIntegerValue() == 10){
-                    diez = true;
+                if (as && diez){
+                    isBlackJack = true;
+                    puntuacion = 21;
+                    return;
                 }
             }
-            if(as && diez){
-                isBlackJack = true;
+            if (as && puntuacion <= 10){
+                puntuacion = puntuacion + 11;
+            }else{
+                puntuacion = puntuacion + carta.getValor().getIntegerValue();
             }
         }
     }

@@ -142,8 +142,14 @@ public class Mesa {
                         }
                         repartirCarta(jugador);
 
+<<<<<<< HEAD:src/main/java/com/fosanzdev/BlackJack/Mesa.java
                         // Si el jugador tiene 21 puntos, no puede pedir más cartas
                         if (mano.getPuntuacion() == 21){
+=======
+                        // Si el jugador se pasa o tiene 21, no puede pedir más cartas
+                        if (mano.getPuntuacion() >= 21) {
+                            ioInterface.print("Te has pasado!", true);
+>>>>>>> master:src/main/java/com/nolete19/BlackJack/Mesa.java
                             inBounds = false;
                             mainFrame.bigLog("El jugador ha alcanzado la puntuacion máxima!");
                             TimeUnit.SECONDS.sleep(3);
