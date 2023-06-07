@@ -47,12 +47,26 @@ public class CardsPanel extends JPanel{
     }
 
     private void paintCards(Graphics2D g2d, Jugador jugador2, Jugador crupier2) {
-        if (jugador == null || crupier == null)
-            return;
-        Mano manoCrupier = isFinished ? crupier.getMano() : crupier.getMano().getUniqueCard();
-        Mano manoJugador = jugador.getMano();
+        Mano manoCrupier;
+        Mano manoJugador;
+        if (jugador != null)
+            manoJugador = jugador.getMano();
+        else
+            manoJugador = null;
+        
+        if (crupier != null)
+            manoCrupier = isFinished ? crupier.getMano() : crupier.getMano().getUniqueCard();
+        else 
+            manoCrupier = null;
 
         for (int i = 1; i <= 2; i++) {
+            if (i == 1){
+                if (manoCrupier == null)
+                    continue;
+            } else if (i == 2){
+                if (manoJugador == null)
+                    continue;
+            }
             ArrayList<Carta> cartas;
             if (i == 1 && !isFinished)
                 cartas = manoCrupier.getCartas();

@@ -1,6 +1,7 @@
 package com.fosanzdev.BlackJack;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import com.fosanzdev.BlackJack.Cartas.Baraja;
 import com.fosanzdev.BlackJack.Configuracion.Configuracion;
@@ -108,7 +109,10 @@ public class Mesa {
             GameMoment gameMoment = new GameMoment(jugador, crupier, false, "Jugando");
             mainFrame.setGameMoment(gameMoment);
 
-            ioInterface.print("-------- AHORA JUEGA: " + jugador.getNombre() + " -----------", true);
+            mainFrame.bigLog("Turno de " + jugador.getNombre() + ": ");
+            TimeUnit.SECONDS.sleep(3);
+            mainFrame.bigLog("");
+
             if (isIA) {
                 ioInterface.print("*Es una IA", true);
                 mainFrame.bigLog("Es una IA");
@@ -119,9 +123,8 @@ public class Mesa {
 
             // Si el jugador tiene blackjack, no puede pedir más cartas
             if (mano.getPuntuacion() == 21) {
-                if (isIA)
-                    Thread.sleep(configuracion.milisegundosEspera);
-                ioInterface.print("Blackjack!", true);
+                mainFrame.bigLog("BlackJack! de " + jugador.getNombre());
+                TimeUnit.SECONDS.sleep(3);
                 inBounds = false;
                 mano.setBlackJack(true);
             }
@@ -134,27 +137,31 @@ public class Mesa {
                     // Si el jugador pide carta, se la damos
                     case PEDIR_CARTA:
                         if (isIA) {
-                            ioInterface.print("La IA ha pedido una carta...", true);
-                            Thread.sleep(configuracion.milisegundosEspera);
+                            mainFrame.bigLog("La IA pide una carta");
+                            TimeUnit.MILLISECONDS.sleep(configuracion.milisegundosEspera);
                         }
                         repartirCarta(jugador);
 
-                        // Si el jugador se pasa o tiene 21, no puede pedir más cartas
-                        if (mano.getPuntuacion() >= 21) {
-                            ioInterface.print("Te has pasado!", true);
+                        // Si el jugador tiene 21 puntos, no puede pedir más cartas
+                        if (mano.getPuntuacion() == 21){
                             inBounds = false;
-                            if (isIA)
-                                Thread.sleep(configuracion.milisegundosEspera);
+                            mainFrame.bigLog("El jugador ha alcanzado la puntuacion máxima!");
+                            TimeUnit.SECONDS.sleep(3);
+                        }
+                        // Si el jugador se pasa de 21 puntos, no puede pedir más cartas
+                        else if (mano.getPuntuacion() > 21){
+                            inBounds = false;
+                            mainFrame.bigLog("El jugador se ha pasado de 21 puntos!");
+                            TimeUnit.SECONDS.sleep(3);
                         }
                         break;
                     case PLANTARSE:
                         if (isIA) {
-                            ioInterface.print("La IA se ha plantado: ", false);
-                            Thread.sleep(configuracion.milisegundosEspera);
+                            mainFrame.bigLog("La IA se planta");
+                            TimeUnit.MILLISECONDS.sleep(configuracion.milisegundosEspera);
                         }
-                        ioInterface.print("Te plantas con " + mano.getPuntuacion() + " puntos", true);
-                        if (isIA)
-                            Thread.sleep(configuracion.milisegundosEspera);
+                        mainFrame.bigLog("El jugador se ha plantado con " + mano.getPuntuacion() + " puntos");
+                        TimeUnit.SECONDS.sleep(3);
                         inBounds = false;
                         break;
                 }
@@ -255,15 +262,31 @@ public class Mesa {
      * Este método se encarga de repartir cartas al crupier en caso que la puntuacion
      * sea menor de 17.
      */
-    public void jugarCrupier() {
+    public void jugarCrupier() throws InterruptedException{
+        mainFrame.bigLog("El crupier tiene " + crupier.getMano().getPuntuacion() + " puntos");
+        GameMoment gameMoment = new GameMoment(null, crupier, true, "Crupier");
+        mainFrame.setGameMoment(gameMoment);
         boolean inBounds = true;
         while (inBounds) {
+            mainFrame.bigLog("El crupier tiene " + crupier.getMano().getPuntuacion() + " puntos");
             if (crupier.getMano().getPuntuacion() < 17) {
+                mainFrame.bigLog("El crupier pide carta");
+                TimeUnit.MILLISECONDS.sleep(configuracion.milisegundosEspera);
                 repartirCarta(crupier);
             } else {
+                if (crupier.getMano().getPuntuacion() > 21) {
+                    mainFrame.bigLog("El crupier se ha pasado de 21");
+                } else {
+                    mainFrame.bigLog("El crupier se planta");
+                }
+                TimeUnit.MILLISECONDS.sleep(configuracion.milisegundosEspera);
+                mainFrame.bigLog("El crupier tiene " + crupier.getMano().getPuntuacion() + " puntos");
+                TimeUnit.SECONDS.sleep(3);
                 inBounds = false;
             }
         }
+        mainFrame.bigLog("");
+        mainFrame.setGameMoment(GameMoment.BETTING);
     }
 
     /**
