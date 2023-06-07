@@ -1,6 +1,8 @@
 package com.fosanzdev.BlackJack.UI;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -18,6 +20,7 @@ public class CardsPanel extends JPanel{
     private Jugador jugador = null;
     private Jugador crupier = null;
     private boolean isFinished = false;
+    private String bigLog = "";
     public CardsPanel(Dimension size){
         super();
         this.setPreferredSize(size);
@@ -33,6 +36,9 @@ public class CardsPanel extends JPanel{
 
         //Paint the cards
         paintCards(g2d, jugador, crupier);
+
+        //Paint the text
+        paintText(g2d);
     }
 
     public void paintBackground(Graphics2D g2d){
@@ -85,6 +91,19 @@ public class CardsPanel extends JPanel{
             }
         }
         
+    }
+
+    public void paintText(Graphics2D g2d) {
+        g2d.setColor(Color.WHITE);
+        g2d.setFont(new Font("Arial", Font.BOLD, 20));
+        //Calculate the width of the text
+        int width = g2d.getFontMetrics().stringWidth(bigLog);
+        //Draw the text in the center of the panel
+        g2d.drawString(bigLog, (this.getWidth() - width) / 2, this.getHeight() / 2);
+    }
+
+    public void bigLog(String text){
+        bigLog = text;
     }
 
     public void setGameMoment(GameMoment gameMoment){

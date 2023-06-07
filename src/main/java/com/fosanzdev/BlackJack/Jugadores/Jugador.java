@@ -2,7 +2,6 @@ package com.fosanzdev.BlackJack.Jugadores;
 import com.fosanzdev.BlackJack.Mesa;
 import com.fosanzdev.BlackJack.Cartas.Carta;
 import com.fosanzdev.BlackJack.Cartas.Valores;
-import com.fosanzdev.BlackJack.Utils.IO;
 import com.fosanzdev.BlackJack.Utils.UIIO;
 
 

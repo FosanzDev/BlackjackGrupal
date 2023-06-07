@@ -44,11 +44,16 @@ public class MainFrame extends JFrame implements Runnable{
         logger.log(message);
     }
 
+    public void bigLog(String message){
+        gamePanel.bigLog(message);
+    }
+
     public int waitForButton(GameMoment gameMoment){
         return gamePanel.waitForButton(gameMoment);
     }
 
-    public String waitForString(String text) {
+    public String waitForString(String text, String comment) {
+        //Crea un JFrame con un JTextArea y un JButton
         JFrame stringReader = new JFrame();
         stringReader.setSize(200, 100);
         stringReader.setLocationRelativeTo(null);
@@ -56,9 +61,18 @@ public class MainFrame extends JFrame implements Runnable{
 
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JPanel labelPanel = new JPanel();
+        labelPanel.setLayout(new BorderLayout());
 
         JLabel label = new JLabel(text);
-        panel.add(label, BorderLayout.NORTH);
+        labelPanel.add(label, BorderLayout.NORTH);
+
+        JLabel label2 = new JLabel(comment);
+        labelPanel.add(label2, BorderLayout.SOUTH);
+
+        panel.add(labelPanel, BorderLayout.NORTH);
 
         JTextArea textArea = new JTextArea();
         textArea.addKeyListener(new KeyAdapter() {

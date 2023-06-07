@@ -60,6 +60,10 @@ public class GamePanel extends JPanel{
         buttonPanel.setGameMoment(gameMoment);
     }
 
+    public void bigLog(String text){
+        cardsPanel.bigLog(text);
+    }
+
     public int waitForButton(GameMoment gameMoment){
         return buttonPanel.waitForButton(gameMoment.getOptions());
     }

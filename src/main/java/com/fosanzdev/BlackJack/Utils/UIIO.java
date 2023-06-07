@@ -30,15 +30,16 @@ public class UIIO {
     public int readLimitedInt(String text, int min, int max) {
         int option = -1;
         boolean valid = false;
+        String comment = "Introduce un numero entre " + min + " y " + max;
         while (!valid) {
             try {
-                String input = readString(text);
+                String input = readString(text, comment);
                 input = input.replaceAll("\\s+", "");
                 option = Integer.parseInt(input);
                 if (option >= min && option <= max) {
                     valid = true;
                 } else {
-                    print("Opcion no valida", true);
+                    comment = "Numero fuera de rango. Introduce un numero entre " + min + " y " + max;
                 }
             } catch (NumberFormatException e) {
                 print("Bad format", true);
@@ -51,8 +52,8 @@ public class UIIO {
         mainFrame.log(text);
     }
 
-    public String readString(String text){
-        return mainFrame.waitForString(text);
+    public String readString(String text, String comment){
+        return mainFrame.waitForString(text, comment);
     }
 
     public void waitEnter() {

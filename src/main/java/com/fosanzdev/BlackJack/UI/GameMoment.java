@@ -6,6 +6,7 @@ public class GameMoment {
     private static final String[] MAIN_MENU_OPTIONS = {"Nueva partida", "Estadisticas", "Opciones", "Salir"};
 
     public static GameMoment INITIAL = new GameMoment(null, null, false, MAIN_MENU_OPTIONS);
+    public static GameMoment BETTING = new GameMoment(null, null, false, "Introduce tu apuesta");
 
     private Jugador jugador;
     private Jugador crupier;

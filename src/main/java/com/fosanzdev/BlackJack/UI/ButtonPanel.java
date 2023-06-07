@@ -71,15 +71,12 @@ public class ButtonPanel extends JPanel implements MouseListener{
 
     public int waitForButton(String... options) {
         this.options = options;
-        System.out.println("Waiting for button");
         this.latch = new CountDownLatch(1);
         try {
             this.latch.await();
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        System.out.println("Button clicked: " + this.buttonClicked);
         latch.countDown();
         int button = this.buttonClicked;
         this.buttonClicked = -1;

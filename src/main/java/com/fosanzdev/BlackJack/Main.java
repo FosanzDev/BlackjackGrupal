@@ -18,6 +18,7 @@ public class Main {
         mainFrame.setVisible(true);
 
         mainFrame.log("Bienvenido a BlackJack");
+        mainFrame.bigLog("Bienvenido a BlackJack");
         GameMoment menu = new GameMoment(null, null, false, new String[]{"Nueva partida", "Estadisticas", "Configuracion", "Salir"});
         mainFrame.setGameMoment(menu);
         UIIO ioInterface = new UIIO(mainFrame);
@@ -30,7 +31,7 @@ public class Main {
                 case 0:
                     // Empezar partida
                     // Creacion de la mesa
-                    Mesa mesa = new Mesa(ioInterface, config, stats);
+                    Mesa mesa = new Mesa(ioInterface, config, stats, mainFrame);
 
                     // Creacion de los jugadores IA
                     for (int i = 0; i < config.numeroJugadoresIA; i++) {
@@ -39,12 +40,23 @@ public class Main {
 
                     // Creacion de los jugadores humanos
                     for (int i = 0; i < config.numeroJugadoresHumanos; i++) {
-                        String nombre = ioInterface.readString("Nombre del jugador " + i + ": ");
-                        mesa.addJugador(new JugadorHumano(nombre, config.saldoInicialJugadoresHumanos));
+                        String comment = "";
+                        boolean nombreValido = false;
+                        while (!nombreValido) {
+                            String nombre = ioInterface.readString("Nombre del jugador " + i + " (max 15 caracteres): ", comment);
+                            if (nombre.length() > 2 && nombre.length() < 15 && nombre != null && !nombre.equals("")) {
+                                nombreValido = true;
+                                mesa.addJugador(new JugadorHumano(nombre, config.saldoInicialJugadoresHumanos));
+                            } else {
+                                comment = "Nombre invalido.\nIntroduce un nombre entre 2 y 15 caracteres";
+                            }
+                            
+                        }
                     }
 
                     // Creacion del juego
                     stats.incrementarPartidasJugadas();
+                    mainFrame.bigLog("");
                     Juego juego = new Juego(mesa);
                     juego.run();
                     break;
