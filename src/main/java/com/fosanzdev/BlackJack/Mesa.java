@@ -186,6 +186,11 @@ public class Mesa {
                 // CASO 1.1: El crupier no tiene blackjack (Se le suma: apuesta * multiplicadorBlackjack)
                 if (!crupier.getMano().isBlackJack()) {
                     resultados.put(jugador, 2);
+                    int dineroGanado = (int) (jugador.getApuesta() * configuracion.multiplicadorBlackjack);
+                    jugador.addDinero(dineroGanado);
+                    if (jugador instanceof JugadorHumano){
+                        estadisticas.incrementVictoriasJugador();
+                    }
                 }
 
                 // CASO 1.2: El crupier tiene blackjack (No se le resta dinero al jugador)
@@ -200,23 +205,31 @@ public class Mesa {
                 // CASO 2.1: El jugador se ha pasado de 21 (Se le resta: apuesta)
                 if (puntosJugador > 21) {
                     resultados.put(jugador, 0);
+                    jugador.addDinero(-jugador.getApuesta());
                 }
 
                 // CASO 2.2 El crupier se ha pasado de 21 (Se le suma: apuesta * multiplicadorGanadorBasico)
                 else if (puntosCrupier > 21) {
                     resultados.put(jugador, 1);
+                    jugador.addDinero((int) (jugador.getApuesta() * configuracion.multiplicadorGanadorBasico));
+                    if (jugador instanceof JugadorHumano) {
+                        estadisticas.incrementVictoriasJugador();
+                    }
                 }
 
                 // CASO 2.3: El crupier tiene menos puntos que el jugador (Se le suma: apuesta *
                 // multiplicadorGanadorBasico)
                 else if (puntosCrupier < puntosJugador) {
                     resultados.put(jugador, 1);
+                    int dineroGanado = (int) (jugador.getApuesta() * configuracion.multiplicadorGanadorBasico);
+                    jugador.addDinero(dineroGanado);
                 }
 
                 // CASO 2.4: El crupier tiene más puntos o los mismos que el jugador (Se le
                 // resta: apuesta)
                 else if (puntosCrupier >= puntosJugador && puntosCrupier <= 21) {
                     resultados.put(jugador, 0);
+                    jugador.addDinero(-jugador.getApuesta());
                 }
             }
         }
