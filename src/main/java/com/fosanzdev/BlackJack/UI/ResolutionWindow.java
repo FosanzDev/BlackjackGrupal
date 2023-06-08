@@ -63,6 +63,6 @@ public class ResolutionWindow extends JFrame{
             this.setVisible(true);
         }
         
-        TimeUnit.SECONDS.sleep(10);
+        TimeUnit.SECONDS.sleep(players.size() * 3);
     }
 }

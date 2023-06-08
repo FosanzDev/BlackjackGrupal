@@ -169,7 +169,7 @@ public class Mesa {
                 }
             }
             mainFrame.bigLog("");
-            mainFrame.setGameMoment(GameMoment.BETTING);
+            mainFrame.setGameMoment(new GameMoment(jugador, null, false, "Apostando..."));
         }
     }
 
