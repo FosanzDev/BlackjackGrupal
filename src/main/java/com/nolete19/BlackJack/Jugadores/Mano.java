@@ -38,7 +38,7 @@ public class Mano implements Iterable<Carta>{
      * @return Devuelve la puntuacion calculada.
      */
     private void calcularPuntuacion(){
-        if (cartas.size() == 0){
+        if (cartas.size() == 0 || cartas == null){
             puntuacion = 0;
             return;
         }
@@ -47,26 +47,25 @@ public class Mano implements Iterable<Carta>{
         boolean diez = false;
         puntuacion = 0;
 
-        for (Carta carta : cartas){
-            if (carta.getValor() == Valores.AS){
+        for (Carta c: cartas){
+            if (c.getValor() == Valores.AS){
                 as = true;
-            }else if (carta.getValor().getIntegerValue() == 10){
+            }
+            if (c.getValor().getIntegerValue() >= 10){
                 diez = true;
             }
-
-            if (cartas.size() == 2){
-                if (as && diez){
-                    isBlackJack = true;
-                    puntuacion = 21;
-                    return;
-                }
-            }
-            if (as && puntuacion <= 10){
-                puntuacion = puntuacion + 11;
-            }else{
-                puntuacion = puntuacion + carta.getValor().getIntegerValue();
-            }
+            puntuacion += c.getValor().getIntegerValue();
         }
+
+        if (as && diez && cartas.size() == 2){
+            isBlackJack = true;
+            puntuacion = 21;
+        }
+
+        if (as && puntuacion <= 11){
+            puntuacion += 10;
+        }
+
     }
 
     /**
