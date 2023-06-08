@@ -1,6 +1,7 @@
 package com.fosanzdev.BlackJack;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import com.fosanzdev.BlackJack.Cartas.Baraja;
@@ -12,6 +13,7 @@ import com.fosanzdev.BlackJack.Jugadores.JugadorIA;
 import com.fosanzdev.BlackJack.Jugadores.Mano;
 import com.fosanzdev.BlackJack.UI.GameMoment;
 import com.fosanzdev.BlackJack.UI.MainFrame;
+import com.fosanzdev.BlackJack.UI.ResolutionWindow;
 import com.fosanzdev.BlackJack.Utils.UIIO;
 
 public class Mesa {
@@ -142,14 +144,8 @@ public class Mesa {
                         }
                         repartirCarta(jugador);
 
-<<<<<<< HEAD:src/main/java/com/fosanzdev/BlackJack/Mesa.java
                         // Si el jugador tiene 21 puntos, no puede pedir más cartas
                         if (mano.getPuntuacion() == 21){
-=======
-                        // Si el jugador se pasa o tiene 21, no puede pedir más cartas
-                        if (mano.getPuntuacion() >= 21) {
-                            ioInterface.print("Te has pasado!", true);
->>>>>>> master:src/main/java/com/nolete19/BlackJack/Mesa.java
                             inBounds = false;
                             mainFrame.bigLog("El jugador ha alcanzado la puntuacion máxima!");
                             TimeUnit.SECONDS.sleep(3);
@@ -178,32 +174,23 @@ public class Mesa {
     }
 
     public void resolucion() {
-        int puntosCrupier = crupier.getMano().getPuntuacion();
-        ioInterface.print("-------- RESOLUCIÓN: Crupier -----------", true);
-        ioInterface.print("El crupier tiene " + puntosCrupier + " puntos", true);
+
+        HashMap<Jugador, Integer> resultados = new HashMap<>();
 
         for (Jugador jugador : jugadores) {
-            ioInterface.print("-------- RESOLUCIÓN: " + jugador.getNombre() + " -----------", true);
             int puntosJugador = jugador.getMano().getPuntuacion();
+            int puntosCrupier = crupier.getMano().getPuntuacion();
             // CASO 1: El jugador tiene blackjack
             if (jugador.getMano().isBlackJack()) {
-                ioInterface.print("El jugador tenía blackjack!", false);
 
                 // CASO 1.1: El crupier no tiene blackjack (Se le suma: apuesta * multiplicadorBlackjack)
                 if (!crupier.getMano().isBlackJack()) {
-                    ioInterface.print(", gana a lo grande!", true);
-                    int dineroGanado = (int) (jugador.getApuesta() * configuracion.multiplicadorBlackjack);
-                    ioInterface.print("Has ganado " + dineroGanado + "E", true);
-                    jugador.addDinero(dineroGanado);
-                    if (jugador instanceof JugadorHumano) {
-                        estadisticas.incrementVictoriasJugador();
-                    }
+                    resultados.put(jugador, 2);
                 }
 
                 // CASO 1.2: El crupier tiene blackjack (No se le resta dinero al jugador)
                 else {
-                    ioInterface.print(", Pero el crupier también!", true);
-                    ioInterface.print("No ganas ni pierdes dinero", true);
+                    resultados.put(jugador, 3);
                 }
             }
 
@@ -212,44 +199,40 @@ public class Mesa {
 
                 // CASO 2.1: El jugador se ha pasado de 21 (Se le resta: apuesta)
                 if (puntosJugador > 21) {
-                    ioInterface.print("El jugador se ha pasado de 21!", true);
-                    ioInterface.print("Has perdido " + jugador.getApuesta() + "E", true);
-                    jugador.addDinero(-jugador.getApuesta());
+                    resultados.put(jugador, 0);
                 }
 
                 // CASO 2.2 El crupier se ha pasado de 21 (Se le suma: apuesta * multiplicadorGanadorBasico)
                 else if (puntosCrupier > 21) {
-                    ioInterface.print("El crupier se ha pasado de 21!", true);
-                    ioInterface.print("Has ganado " + jugador.getApuesta() * configuracion.multiplicadorGanadorBasico
-                            + "E", true);
-                    jugador.addDinero((int) (jugador.getApuesta() * configuracion.multiplicadorGanadorBasico));
-                    if (jugador instanceof JugadorHumano) {
-                        estadisticas.incrementVictoriasJugador();
-                    }
+                    resultados.put(jugador, 1);
                 }
 
                 // CASO 2.3: El crupier tiene menos puntos que el jugador (Se le suma: apuesta *
                 // multiplicadorGanadorBasico)
                 else if (puntosCrupier < puntosJugador) {
-                    ioInterface.print("El jugador tenía más puntos que el crupier!", true);
-                    int dineroGanado = (int) (jugador.getApuesta() * configuracion.multiplicadorGanadorBasico);
-                    ioInterface.print("Has ganado " + dineroGanado + "E", true);
-                    jugador.addDinero(dineroGanado);
+                    resultados.put(jugador, 1);
                 }
 
                 // CASO 2.4: El crupier tiene más puntos o los mismos que el jugador (Se le
                 // resta: apuesta)
                 else if (puntosCrupier >= puntosJugador && puntosCrupier <= 21) {
-                    ioInterface.print("El jugador tenía menos puntos que el crupier!", true);
-                    ioInterface.print("Has perdido " + jugador.getApuesta() + "E", true);
-                    jugador.addDinero(-jugador.getApuesta());
+                    resultados.put(jugador, 0);
                 }
             }
-            // Se resetea la mano del jugador
-            jugador.reset();
-            crupier.reset();
-            baraja = new Baraja();
         }
+
+        try {
+            ResolutionWindow resolution = new ResolutionWindow(resultados, crupier);
+            resolution.dispose();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        for (Jugador j:jugadores){
+            j.reset();
+        }
+        crupier.reset();
+        baraja = new Baraja();
 
         //Para evitar el ConcurrentModificationException creamos una lista auxiliar
         // Comprobamos si algun jugador no cumple los requisitos para seguir jugando
